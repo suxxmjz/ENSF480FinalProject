@@ -1,6 +1,6 @@
-# ENSF480FinalProject-Group-30
+# ENSF480FinalProject-Group 30
 
-This is our ENSF 480 final project (Group-30) repository.
+This is our ENSF 480 final project (Group 30) repository.
 
 ## Contributors
 
