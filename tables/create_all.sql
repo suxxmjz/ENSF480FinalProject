@@ -42,19 +42,31 @@ CREATE TABLE movies (
 DROP TABLE IF EXISTS `Showtime` ;
 
 CREATE TABLE Showtime
-(showroom_ID      CHAR(4)     NOT NULL,
+(   showroom_ID      char(4)   NOT NULL,
+    theatre_name     VARCHAR(50)  NOT NULL,
     movie_name     VARCHAR(50)        NOT NULL,
     showing_time   DATETIME		NOT NULL,
- 	theatre_name   VARCHAR(50)  NOT NULL,
-    PRIMARY KEY(showroom_ID, movie_name, showing_time),
     FOREIGN KEY (showroom_ID, theatre_name) REFERENCES Showroom(showroom_ID, theatre_name)
     ON DELETE CASCADE       ON UPDATE CASCADE,
-    FOREIGN KEY (movie_name) REFERENCES Movie(MovieTitle)
-    ON DELETE CASCADE       ON UPDATE CASCADE
+    FOREIGN KEY (movie_name) REFERENCES Movies(MovieTitle)
+    ON DELETE CASCADE       ON UPDATE CASCADE,
+    PRIMARY KEY(showroom_ID, movie_name, showing_time)
 );
 
 
 
+DROP TABLE IF EXISTS `ticket` ;
+CREATE TABLE ticket (
+  id int NOT NULL AUTO_INCREMENT,
+  seatNo int NOT NULL,
+  showroom_ID  CHAR(4) NOT NULL,
+  movieName varchar(50) NOT NULL,
+  datePurchased DATE NOT NULL, /* dd-mm-yyyy */
+  showing_time DATETIME		NOT NULL,
+  email varchar(50) NOT NULL,
+  FOREIGN KEY (showroom_ID, movieName, showing_time) REFERENCES Showtime(showroom_ID, movie_name, showing_time),
+  PRIMARY KEY (id)
+);
 
 
 DROP TABLE IF EXISTS `payment`;
@@ -71,18 +83,6 @@ CREATE TABLE payment(
 );
 
 
-DROP TABLE IF EXISTS `ticket` ;
-CREATE TABLE ticket (
-  id int NOT NULL AUTO_INCREMENT,
-  seatNo int NOT NULL,
-  showroom_ID  CHAR(4) NOT NULL,
-  movieName varchar(50) NOT NULL,
-  datePurchased DATE NOT NULL, /* dd-mm-yyyy */
-  showing_time DATETIME		NOT NULL,
-  email varchar(50) NOT NULL,
-  FOREIGN KEY (showroom_ID, movieName, showing_time) REFERENCES Showtime(showroom_ID, movie_name, showing_time),
-  PRIMARY KEY (id)
-);
 
 DROP TABLE IF EXISTS `seats` ;
 
