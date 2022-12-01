@@ -35,6 +35,7 @@ CREATE TABLE movies (
     MovieTitle VARCHAR(50) NOT NULL,
     Genre VARCHAR(50) DEFAULT NULL,
     RunTime INT DEFAULT NULL,
+    Announcement DATE NOT NULL,
     PRIMARY KEY(MovieTitle)
 );
 
