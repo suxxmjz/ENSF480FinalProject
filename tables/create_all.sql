@@ -4,7 +4,8 @@ CREATE DATABASE `480_final_project`;
 DROP TABLE IF EXISTS `users` ;
 
 CREATE TABLE users (
-  Username varchar(45) DEFAULT NULL,
+  Firstname varchar(45) DEFAULT NULL,
+  Lastname varchar(45) DEFAULT NULL,
   UserAddress varchar(45) DEFAULT NULL,
   CardNumber int DEFAULT NULL,
   Email varchar(45) NOT NULL,
