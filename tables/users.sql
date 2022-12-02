@@ -1,7 +1,8 @@
 DROP TABLE IF EXISTS `users` ;
 
 CREATE TABLE `users` (
-  `Name` varchar(45) DEFAULT NULL,
+  `Firstname` varchar(45) DEFAULT NULL,
+  `Lastname` varchar(45) DEFAULT NULL,
   `Address` varchar(45) DEFAULT NULL,
   `CardNumber` int DEFAULT NULL,
   `Email` varchar(45) NOT NULL,
