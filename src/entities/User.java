@@ -10,6 +10,7 @@ public class User{
     private String userEmail;
     private String password;
     private int cardNumber;
+    private ArrayList<Ticket> userTickets;
     private boolean is_registered;
 
     public User (String firstName, String lastName, String userAddress, String userEmail, String password, int cardNumber, boolean is_registered){
@@ -21,6 +22,10 @@ public class User{
        this.cardNumber = cardNumber;
 
     }
+
+    public ArrayList<Ticket> getUserTickets(){
+		return userTickets;
+	}
 
     public String getFirstName(){
         return firstName;
