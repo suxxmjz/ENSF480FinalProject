@@ -10,9 +10,9 @@ public class User{
     private String userEmail;
     private String password;
     private int cardNumber;
-    private boolean is_registred;
+    private boolean is_registered;
 
-    public User (string firstName, string lastName, string userAddress, string userEmail, string password, int cardNumber, boolean is_registered){
+    public User (String firstName, String lastName, String userAddress, String userEmail, String password, int cardNumber, boolean is_registered){
        this.firstName = firstName;
        this.lastName = lastName;
        this.userAddress = userAddress;
@@ -43,11 +43,11 @@ public class User{
         return password;
     }
 
-    public String getcardNumber(){
+    public int getcardNumber(){
         return cardNumber;
     }
 
     public boolean is_registered(){
-        return this.is_registred;
+        return this.is_registered;
     }
 }

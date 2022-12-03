@@ -8,10 +8,10 @@ public class Seat {
     private boolean available;
     private String movieName;
     private float showTime;
-    private string showRoom;
+    private String showRoom;
 
-    public Seat(int seatNumber, string rowNumber, boolean available, string movieName, float showTime,
-            string showRoom) {
+    public Seat(int seatNumber, String rowNumber, boolean available, String movieName, float showTime,
+            String showRoom) {
         this.seatNumber = seatNumber;
         this.rowNumber = rowNumber;
         this.movieName = movieName;
