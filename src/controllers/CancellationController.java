@@ -17,7 +17,7 @@ public class CancellationController {
     private int id;
     private User currUser;
     private Ticket ticket;
-    private TicketReceipt ticketReceipt;
+
 
     public CancellationController(DatabaseController db) {
         databaseController = db;
@@ -27,24 +27,24 @@ public class CancellationController {
         app = incoming;
     }
 
-    public void cancel(OrdinaryUser user) throws Exception {
+    public void cancel(User user) throws Exception {
         currUser = user;
         refundGUI = new CancellationGUI("Ticket Cancellation", this);
         refundGUI.getTicketNo();
     }
 
-    public void ticketParse(String ticketNo) {
-        id = Integer.parseInt(ticketNo);
-        ticketReceipt = databaseController.getTicketReceipt(id);
+    public void ticketParse(int id) {
+       
+    
         ticket = databaseController.getTicket(id);
 
-        if (ticketReceipt == null) {
-            refundGUI.CancellationFailedGUI("Unable to find ticket");
+        if (ticket == null) {
+            refundGUI.CancellationFailedGUI("Ticket does not exist.");
             return;
         }
 
         if (!check72hours(ticket)) {
-            refundGUI.CancellationFailedGUI("This movie starts within 72 hours. Ticket Cancellation Failed");
+            refundGUI.CancellationFailedGUI("Refund failed. Please refund 72 hours prior to showtime.");
             return;
         }
         if (currUser.getClass() == User.class) {
@@ -62,16 +62,16 @@ public class CancellationController {
         }
     }
 
-    public void billingInfoParse(String e, String c, String b) {
-        String email = e;
-        String billingInfo = b;
-        card = Integer.parseInt(c);
-        double refundAmount = ticket.getPrice() * .85;
-        Calendar cal = Calendar.getInstance();
-        cal.add(Calendar.YEAR, 1);
-        Date nextYear = cal.getTime();
-        refundGUI.RegCancelGUI(refundAmount, nextYear);
-    }
+    // public void billingInfoParse(String e, String c, String b) {
+    //     String email = e;
+    //     String billingInfo = b;
+    //     card = Integer.parseInt(c);
+    //     double refundAmount = ticket.getPrice() * .85;
+    //     Calendar cal = Calendar.getInstance();
+    //     cal.add(Calendar.YEAR, 1);
+    //     Date nextYear = cal.getTime();
+    //     refundGUI.RegCancelGUI(refundAmount, nextYear);
+    // }
 
     private boolean check72hours(Ticket ticket) {
         Duration duration = Duration.between(LocalDateTime.now(), ticket.getShowingTime());
