@@ -1,6 +1,6 @@
 import java.time.LocalDate;
 
-public class ticket {
+public class Ticket {
 
     private int id;
     private int seatNo;
@@ -10,7 +10,7 @@ public class ticket {
     private String showing_time;
     private String email;
 
-    public ticket(int id, int seatNo, String showroom_ID, String movieName, LocalDate datePurchased, String showing_time, String email){
+    public Ticket(int id, int seatNo, String showroom_ID, String movieName, LocalDate datePurchased, String showing_time, String email){
         this.id = id;
         this.seatNo = seatNo;
         this.showroom_ID = showroom_ID;

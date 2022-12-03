@@ -1,12 +1,12 @@
 
-public class payment {
+public class Payment {
     private int ticketID;
     private float price;
     private String email;
     private int cardNumber;
     private boolean refunded;
 
-    public payment(int ticketID, float price, String email, int cardNumber, boolean refunded){
+    public Payment(int ticketID, float price, String email, int cardNumber, boolean refunded){
         this.ticketID = ticketID;
         this.price = price;
         this.email = email;
