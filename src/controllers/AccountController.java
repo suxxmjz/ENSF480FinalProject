@@ -6,54 +6,54 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 public class AccountController {
-    private AccountGUI accountGUI;
-	private DatabaseController databaseController;
-	private MovieTheatreApp movieTheatreApp;
+    private AccountGUI acc;
+	private DatabaseController dbControl;
+	private MovieTheatreApp app;
 	
-	public AccountController(DatabaseController database, MovieTheatreApp movieTheater) {
-		databaseController = database;
-		movieTheatreApp = movieTheater;
+	public AccountController(DatabaseController db, MovieTheatreApp movieTheater) {
+		dbControl = db;
+		app = movieTheater;
 	}
 	
 	public void createAccount() {
-		this.accountGUI = new AccountGUI ("Create an Account", this);
+		this.acc = new AccountGUI ("Create an Account", this);
 	}
 	
-	public MovieTheatreApp getMTA () {
-		return movieTheatreApp;
+	public MovieTheatreApp getApp () {
+		return app;
 	}
 
 	public void register() throws Exception{
 		
-		Information information = new Information(accountGUI.getFirstName(), accountGUI.getLastName(), accountGUI.getUserAddress(), accountGUI.getCardNumber());
-		String email = accountGUI.getUserEmail();
-		String password = accountGUI.getPassword();
-		databaseController.addAccount(information);
-		information = databaseController.getAccount(email, password);
+		Information information = new Information(acc.getFirstName(), acc.getLastName(), acc.getUserAddress(), acc.getCardNumber());
+		String email = acc.getUserEmail();
+		String password = acc.getPassword();
+		dbControl.addAccount(information);
+		information = dbControl.getAccount(email, password);
 		if (information == null) {
-			accountGUI.displayInvalidRegistration();
+			acc.displayInvalidRegistration();
 		}
 		else {
-			movieTheatreApp.loginStatus(true);
-			accountGUI.displayConfirmedRegistration(account.getCreationDate().toString());
-			movieTheatreApp.setUser(new RegisteredUser());
-			((RegisteredUser) movieTheatreApp.getUser()).setAccount(information);
-			movieTheatreApp.restart();
+			app.loginStatus(true);
+			acc.displayConfirmedRegistration(acc.getCreationDate().toString());
+			app.setUser(new RegisteredUser());
+			((RegisteredUser) app.getUser()).getInformation();
+			app.restart();
 		}
 	}
 	
 	public void login(User user) throws Exception {
 		
-		accountGUI = new AccountGUI ("Login", this, user);
+		acc = new AccountGUI ("Login", this, user);
 	
 	}
 	
 	public void checkLogin (User user) {
 		
-		Information information = databaseController.getAccount(accountGUI.getEmail(), accountGUI.getPassword());
+		Information information = dbControl.getAccount(acc.getEmail(), acc.getPassword());
 		if (information == null) {
-			accountGUI.dispose();
-			accountGUI.displayInvalidLogin();
+			acc.dispose();
+			acc.displayInvalidLogin();
 			try {
 				login(user);
 				} catch (Exception e) {
@@ -62,12 +62,12 @@ public class AccountController {
 			}
 		else {
 			((RegisteredUser) user).getInformation();
-			movieTheatreApp.setUser(user);
-			accountGUI.setUser(user);
-			accountGUI.dispose();
-			accountGUI.displayLoginConfirmation();	
-			movieTheatreApp.userSelection();
-			movieTheatreApp.loginStatus(true);
+			app.setUser(user);
+			acc.setUser(user);
+			acc.dispose();
+			acc.displayLoginConfirmation();	
+			app.userSelection();
+			app.loginStatus(true);
 		}
 	}
 }
