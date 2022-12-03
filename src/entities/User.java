@@ -5,7 +5,6 @@ import java.util.*;
 
 public class User{
     private ArrayList<Ticket> tickets;
-    private ArrayList<TicketReceipt> receiptList;
 	
     public void newTicket(Ticket tix) {
 	tickets.add(tix);
@@ -22,8 +21,6 @@ public class User{
     public void clearTicketList() {
 	tickets.clear();
     }
-    public void addTicketReceipt(TicketReceipt rec) {
-		receiptList.add(rec);
-	}
+
     
 }
