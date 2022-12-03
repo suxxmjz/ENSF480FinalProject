@@ -5,7 +5,7 @@ import java.util.*;
 import entities.*;
 public class PaymentController {
     public MovieTheatreApp app;
-    private ArrayList<Ticket> tickets;
+    // private ArrayList<Ticket> tickets;
     private DatabaseController dbControl;
     private PaymentGUI payTab;
     private int card;
@@ -20,10 +20,12 @@ public class PaymentController {
         this.app = app;
     }
 
-    public void makePayment(boolean reg, User user){
+    public void makePayment(User user, Ticket theT){
         currUser = user;
-        tickets = currUser.getTickets();
-        if(reg){
+        String email = user.getEmail();
+        boolean checkReg = checkRegisterUser(email);
+        // tickets = currUser.getTickets();
+        if(checkReg){
             payGUI = new PaymentGUI(user,this);
             payGUI.RegPaymentGUI();
 
@@ -32,12 +34,11 @@ public class PaymentController {
             payGUI = new PaymentGUI(user,this);
             normalPayment("info");
         }
-        for (Ticket each : tickets) {
-            TicketReceipt ticketReceipt = new TicketReceipt(each.getID());
-            databaseController.addTicketReceipt(ticketReceipt);
-            user.addTicketReceipt(ticketReceipt);
-            databaseController.updateSeat(each.getMovieName(), each.getShowingTime(), each.getSeatNo(), false);
-        }
+        // for (Ticket each : tickets) {
+            databaseController.addTicket(theT);
+            user.newTicket(theT);
+            databaseController.updateSeat(theT.getMovieName(), theT.getShowingTime(), theT.getSeatNo(), false);
+        //}
         currUser.clearTicketList();
     }
 
@@ -45,16 +46,16 @@ public class PaymentController {
         payGUI.OrdPaymentGUI();
     }
 
-    public void parseInfo(String e, String b, String c) {
-        String email = e;
-        String billingInfo = b;
-        card = Integer.parseInt(c);
+    // public void parseInfo(String e, String b, String c) {
+    //     String email = e;
+    //     String billingInfo = b;
+    //     card = Integer.parseInt(c);
 
-        for (Ticket each : tickets) {
-            TicketReceipt ticketReceipt = new TicketReceipt(each.getID());
-            databaseController.addTicketReceipt(ticketReceipt);
-            currUser.addTicketReceipt(ticketReceipt);
-            databaseController.updateSeat(each.getMovieName(), each.getShowingTime(), each.getSeatNo(), false);
-        }
-    }
+    //     for (Ticket each : tickets) {
+           
+    //         databaseController.addTicket(each);
+    //         currUser.newTicket(each);
+    //         databaseController.updateSeat(each.getMovieName(), each.getShowingTime(), each.getSeatNo(), false);
+    //     }
+    // }
 }
