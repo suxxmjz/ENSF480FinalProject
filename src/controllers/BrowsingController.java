@@ -60,17 +60,17 @@ public class BrowsingController {
 		}
 	}
 	
-	public boolean ordinaryBrowse(String name){
-		boolean check = true;
+	public boolean regularUserBrowsing(String name){
+		boolean isRegular = true;
 		Date movDate = new Date();
 		Movie movie = dbControl.findMovie(name);
 		if (movie.getAnnouncement().getTime() > movDate.getTime()){
-			check = false;
+			isRegular = false;
 		}
-		return check;
+		return isRegular;
 	}
 	
-	public String ordinaryBrowse () {
+	public String regularUserBrowsing () {
 		String movieList = "";
 		ArrayList <Movie> allMovies = dbControl.getAllMovies();
 		Date movDate = new Date();
@@ -82,22 +82,22 @@ public class BrowsingController {
 	}
 
 	public void selectMovie(User user) throws Exception{
-				Movie movie = dbControl.findMovie(browser.getMovie());
+		Movie movies = dbControl.findMovie(browser.getMovie());
 		if (user.getClass() == User.class) {
-			if (movie == null || (movie != null && ordinaryBrowse(browser.getMovie()) == false )) {
+			if (movies == null || (movies != null && regularUserBrowsing(browser.getMovie()) == false )) {
 				browser.dispose();
 				browser.displayInvalidMovie();
 				browse(user);
 				return;
 			}
 		}
-		else if (movie == null) {
+		else if (movies == null) {
 			browser.dispose();
 			browser.displayInvalidMovie();
 			browse(user);
 		}
 			
-		browser.displayShowtimes(getAllShowtimes(movie.getMovieName()), movie.getMovieName());
+		browser.displayShowtimes(getAllShowtimes(movies.getMovieName()), movies.getMovieName());
 		
 	}
 
