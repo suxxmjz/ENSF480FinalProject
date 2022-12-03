@@ -1,3 +1,4 @@
+package entities;
 
 import java.sql.*;
 import java.util.Arrays;

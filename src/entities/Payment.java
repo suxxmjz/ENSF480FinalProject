@@ -1,4 +1,4 @@
-
+package entities;
 public class Payment {
     private int ticketID;
     private float price;
