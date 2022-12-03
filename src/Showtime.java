@@ -48,10 +48,10 @@ public class Showtime {
 	   }
 	   
 	   public boolean Check72Hours() {
-		   Duration duration = Duration.between(showing_time, LocalDateTime.now());
+		   Duration duration = Duration.between(LocalDateTime.now(), showing_time);
 		   if(duration.toHours() >= 72)
-			   return false;
-		   else
 			   return true;
+		   else
+			   return false;
 	   }
 }
