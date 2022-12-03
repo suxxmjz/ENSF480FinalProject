@@ -10,7 +10,7 @@ public class Seat{
     private string showRoom;
 
 
-    public User (int seatNumber, string rowNumber, boolean available, string movieName, float showTime, string showRoom){
+    public Seat (int seatNumber, string rowNumber, boolean available, string movieName, float showTime, string showRoom){
         this.seatNumber = seatNumber;
         this.rowNumber = rowNumber;
         this.movieName = movieName;
