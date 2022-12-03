@@ -1,5 +1,6 @@
 DROP DATABASE IF EXISTS `480_final_project`;
 CREATE DATABASE `480_final_project`;
+USE `480_final_project`;
 
 DROP TABLE IF EXISTS `users` ;
 
@@ -36,6 +37,7 @@ CREATE TABLE movies (
     MovieTitle VARCHAR(50) NOT NULL,
     Genre VARCHAR(50) DEFAULT NULL,
     RunTime INT DEFAULT NULL,
+    Announcement DATE,
     PRIMARY KEY(MovieTitle)
 );
 
