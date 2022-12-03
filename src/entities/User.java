@@ -24,8 +24,8 @@ public class User{
     }
 
     public ArrayList<Ticket> getUserTickets(){
-		return userTickets;
-	}
+	return userTickets;
+    }
 
     public String getFirstName(){
         return firstName;
