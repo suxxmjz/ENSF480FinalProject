@@ -19,7 +19,7 @@ public class MovieTheatreApp {
             browser = new BrowsingController(data, this);
             pay = new PaymentController(data);
             cancel = new CancellationController(data);
-            acc = new AccountController(data, this);
+            acc = new AccountController();
             user = new User();
         }
         
