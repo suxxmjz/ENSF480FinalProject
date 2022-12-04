@@ -149,19 +149,74 @@ public class DatabaseController {
 	   return List;
    }
    
-   public ArrayList<Seats> getAllSeats(Showtime time){
-	   ArrayList<Showroom> List = new ArrayList<Showroom>();
-	   String query = "SELECT * FROM 480_final_project.showroom";
-	   String ID;
-	   String theatre;
+   public ArrayList<Seat> getAllSeats(Showtime time){
+	   ArrayList<Seat> List = new ArrayList<Seat>();
+	   String query = "SELECT * FROM 480_final_project.seats WHERE Showtime = ? AND Movie = ? AND ShowRoom = ?";
+	   int seatNum;
+	   boolean available;
 	   
 	   try {
 		   stmt = dbConnect.prepareStatement(query);
+		   stmt.setTimestamp(1, Timestamp.valueOf(time.getShowingTime()));
+		   stmt.setString(2, time.getMovie());
+		   stmt.setString(3, time.getShowRoom());
 		   results = stmt.executeQuery();
 		   while(results.next()) {
-			   ID = results.getString("showroom_ID");
-			   theatre = results.getString("theatre_name");
-			   List.add(new Showroom(ID, theatre));
+			   seatNum = results.getInt("SeatNumber");
+			   available = results.getBoolean("Available");
+			   List.add(new Seat(seatNum, available, time.getMovie(), time.getShowingTime(), time.getShowRoom()));
+		   }
+		   stmt.close();
+		   results.close();
+	   } catch(Exception e) {
+		   System.out.println(e);
+	   }
+	   return List;
+   }
+   
+   public ArrayList<Seat> getAvailableSeats(Showtime time){
+	   ArrayList<Seat> List = new ArrayList<Seat>();
+	   String query = "SELECT * FROM 480_final_project.seats WHERE Showtime = ? AND Movie = ? AND ShowRoom = ?";
+	   int seatNum;
+	   boolean available;
+	   
+	   try {
+		   stmt = dbConnect.prepareStatement(query);
+		   stmt.setTimestamp(1, Timestamp.valueOf(time.getShowingTime()));
+		   stmt.setString(2, time.getMovie());
+		   stmt.setString(3, time.getShowRoom());
+		   results = stmt.executeQuery();
+		   while(results.next()) {
+			   seatNum = results.getInt("SeatNumber");
+			   available = results.getBoolean("Available");
+			   if(available)
+				   List.add(new Seat(seatNum, available, time.getMovie(), time.getShowingTime(), time.getShowRoom()));
+		   }
+		   stmt.close();
+		   results.close();
+	   } catch(Exception e) {
+		   System.out.println(e);
+	   }
+	   return List;
+   }
+   
+   public ArrayList<Seat> getBookedSeats(Showtime time){
+	   ArrayList<Seat> List = new ArrayList<Seat>();
+	   String query = "SELECT * FROM 480_final_project.seats WHERE Showtime = ? AND Movie = ? AND ShowRoom = ?";
+	   int seatNum;
+	   boolean available;
+	   
+	   try {
+		   stmt = dbConnect.prepareStatement(query);
+		   stmt.setTimestamp(1, Timestamp.valueOf(time.getShowingTime()));
+		   stmt.setString(2, time.getMovie());
+		   stmt.setString(3, time.getShowRoom());
+		   results = stmt.executeQuery();
+		   while(results.next()) {
+			   seatNum = results.getInt("SeatNumber");
+			   available = results.getBoolean("Available");
+			   if(!available)
+				   List.add(new Seat(seatNum, available, time.getMovie(), time.getShowingTime(), time.getShowRoom()));
 		   }
 		   stmt.close();
 		   results.close();
