@@ -1,12 +1,12 @@
 package controllers;
-import DatabaseController;
+import controllers.DatabaseController;
 import entities.*;
-import View.AccountGUI;
+import gui.CreateAccountGUI;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 public class AccountController {
-    private AccountGUI acc;
+    private CreateAccountGUI acc;
 	private DatabaseController dbControl;
 	private MovieTheatreApp app;
 	
@@ -16,7 +16,7 @@ public class AccountController {
 	}
 	
 	public void createAccount() {
-		this.acc = new AccountGUI ("Create an Account", this);
+		this.acc = new CreateAccountGUI ("Create an Account", this);
 	}
 	
 	public MovieTheatreApp getApp () {
@@ -25,49 +25,51 @@ public class AccountController {
 
 	public void register() throws Exception{
 		
-		Information information = new Information(acc.getFirstName(), acc.getLastName(), acc.getUserAddress(), acc.getCardNumber());
-		String email = acc.getUserEmail();
-		String password = acc.getPassword();
-		dbControl.addAccount(information);
-		information = dbControl.getAccount(email, password);
+		
+		dbControl.addRegisteredUser(acc.getRU());
+		String email = acc.getRU().getEmail();
+		String password = acc.getRU().getPassword();
+		RegisteredUser information = dbControl.getRegisteredUser(email, password);
 		if (information == null) {
-			acc.displayInvalidRegistration();
+//			acc.displayInvalidRegistration();
 		}
 		else {
-			app.loginStatus(true);
-			acc.displayConfirmedRegistration(acc.getCreationDate().toString());
-			app.setUser(new RegisteredUser());
-			((RegisteredUser) app.getUser()).getInformation();
-			app.restart();
+			System.out.println("successfully added RU");
+//			app.loginStatus(true);
+////			acc.displayConfirmedRegistration(acc.getCreationDate().toString());
+//			app.setUser(information);
+////			((RegisteredUser) app.getUser()).getInformation();
+//			app.restart();
 		}
 	}
 	
-	public void login(User user) throws Exception {
-		
-		acc = new AccountGUI ("Login", this, user);
+//	public void login(User user) throws Exception {
+//		
+//		acc = new CreateAccountGUI ("Login", this, user);
+//	
+//	}
+//	
+//	public void checkLogin (User user) {
+//		
+//		Information information = dbControl.getAccount(acc.getEmail(), acc.getPassword());
+//		if (information == null) {
+//			acc.dispose();
+//			acc.displayInvalidLogin();
+//			try {
+//				login(user);
+//				} catch (Exception e) {
+//					e.printStackTrace();
+//				}
+//			}
+//		else {
+//			((RegisteredUser) user).getInformation();
+//			app.setUser(user);
+//			acc.setUser(user);
+//			acc.dispose();
+//			acc.displayLoginConfirmation();	
+//			app.userSelection();
+//			app.loginStatus(true);
+//		}
+//	}
 	
-	}
-	
-	public void checkLogin (User user) {
-		
-		Information information = dbControl.getAccount(acc.getEmail(), acc.getPassword());
-		if (information == null) {
-			acc.dispose();
-			acc.displayInvalidLogin();
-			try {
-				login(user);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		else {
-			((RegisteredUser) user).getInformation();
-			app.setUser(user);
-			acc.setUser(user);
-			acc.dispose();
-			acc.displayLoginConfirmation();	
-			app.userSelection();
-			app.loginStatus(true);
-		}
-	}
 }

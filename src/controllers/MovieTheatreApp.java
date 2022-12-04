@@ -1,9 +1,9 @@
 package controllers;
 
 import javax.swing.UIManager;
-import DatabaseController;
-import GUI.WelcomeGUI;
+import gui.WelcomeGUI;
 import entities.*;
+import controllers.*;
 
 
 public class MovieTheatreApp {
@@ -25,6 +25,7 @@ public class MovieTheatreApp {
         
         public static void main(String[] args) {
             DatabaseController dbControl = new DatabaseController();
+            AccountController acControl = new Account
             MovieTheatreApp app = new MovieTheatreApp(dbControl);
                 try {
                     UIManager.setLookAndFeel(UIManager.getCrossPlatformLookAndFeelClassName());

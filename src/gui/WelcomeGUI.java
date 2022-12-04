@@ -1,3 +1,5 @@
+package gui;
+
 import java.awt.EventQueue;
 
 import javax.swing.JButton;
@@ -10,7 +12,7 @@ import java.awt.event.ActionEvent;
 
 public class WelcomeGUI{
 
-	private JFrame frame;
+	private JFrame frame; 
 
 	/**
 	 * Launch the application.
@@ -65,7 +67,8 @@ public class WelcomeGUI{
 		public void actionPerformed(ActionEvent e) {
 			try {
 				frame.dispose();
-				app.register();
+				CreateAccountGUI accountGUI = new CreateAccountGUI(dbControl, accControl, paycontrol);
+				accountGUI.frame.setVisible(true);
 			} catch (Exception e1) {
 				// TODO Auto-generated catch block
 				e1.printStackTrace();
@@ -78,7 +81,7 @@ public class WelcomeGUI{
 		public void actionPerformed(ActionEvent e) {
 			try {
 				frame.dispose();
-				app.login();
+//				app.login();
 			} catch (Exception e1) {
 				// TODO Auto-generated catch block
 				e1.printStackTrace();
@@ -91,7 +94,7 @@ public class WelcomeGUI{
 		public void actionPerformed(ActionEvent e) {
 			try {
 				frame.dispose();
-				app.cancel();
+//				app.cancel();
 			} catch (Exception e1) {
 				// TODO Auto-generated catch block
 				e1.printStackTrace();
@@ -104,7 +107,7 @@ public class WelcomeGUI{
 		public void actionPerformed(ActionEvent e) {
 			try {
 				frame.dispose();
-				app.browse();
+//				app.browse();
 			} catch (Exception e1) {
 				// TODO Auto-generated catch block
 				e1.printStackTrace();
