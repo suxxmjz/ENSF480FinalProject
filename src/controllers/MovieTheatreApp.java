@@ -25,7 +25,7 @@ public class MovieTheatreApp {
         
         public static void main(String[] args) {
             DatabaseController dbControl = new DatabaseController();
-            AccountController acControl = new Account
+            AccountController acControl = new AccountController();
             MovieTheatreApp app = new MovieTheatreApp(dbControl);
                 try {
                     UIManager.setLookAndFeel(UIManager.getCrossPlatformLookAndFeelClassName());
@@ -45,8 +45,8 @@ public class MovieTheatreApp {
         }
         
         public void startPayment() throws Exception {
-            pay.pay(isLogged, user);
-            pay.setMta(this);
+            pay.makePayment(user,theTicket); //need to retrieve ticket from somewhere
+            pay.currApp(this);
         }
         
         public void login() throws Exception {
@@ -63,7 +63,7 @@ public class MovieTheatreApp {
         }
         
         public void browse() throws Exception {
-            browse.browse(user);
+            browser.browse(user);
         }
         
         public void cancel() throws Exception {
@@ -72,7 +72,7 @@ public class MovieTheatreApp {
         }
         
         public void register() throws Exception {
-            account.createAccount();
+            acc.createAccount();
         }
         
         public void logout() {

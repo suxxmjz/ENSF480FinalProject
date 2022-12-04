@@ -59,7 +59,7 @@ public class CancellationController {
         int theSeat = ticket.getSeatNo();
 
         db.changeToAvailable(theShowTime, theSeat);
-        // }
+       
   
     }
 
