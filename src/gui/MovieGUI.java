@@ -1,46 +1,30 @@
-import java.awt.EventQueue;
+package gui;
 import java.awt.Font;
 import java.awt.Image;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 import javax.swing.ImageIcon;
+import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JTextField;
+
+import controllers.DatabaseController;
 
 public class MovieGUI {
 
-	private JFrame frame;
+	public JFrame frame;
 	private JTextField textField;
+	public static DatabaseController dbControl;
+	public static String email, slotInput;
+	boolean userStatus;
 
-	/**
-	 * Launch the application.
-	 */
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					MovieGUI window = new MovieGUI();
-					window.frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
-
-	/**
-	 * Create the application.
-	 */
-	public MovieGUI() {
-		initialize();
-	}
-
-	/**
-	 * Initialize the contents of the frame.
-	 */
-	private void initialize() {
-		
-		boolean userStatus = false;
+	public MovieGUI(DatabaseController dbControl) {
+		MovieGUI.dbControl = dbControl;
+		email = RUserLoginGUI.email;
+		userStatus = dbControl.checkRegisterStatus(email);
 		if(userStatus) {
 			frame = new JFrame();
 			frame.setBounds(100, 100, 1100, 556);
@@ -154,6 +138,11 @@ public class MovieGUI {
 			textField.setBounds(642, 476, 50, 20);
 			frame.getContentPane().add(textField);
 			textField.setColumns(10);
+			
+			JButton btnNewButton = new JButton("Submit");
+			btnNewButton.addActionListener(new submitListener());
+			btnNewButton.setBounds(716, 475, 89, 23);
+			frame.getContentPane().add(btnNewButton);
 		}
 		
 		else {
@@ -238,6 +227,28 @@ public class MovieGUI {
 			textField.setBounds(430, 476, 50, 20);
 			frame.getContentPane().add(textField);
 			textField.setColumns(10);
+			
+			JButton btnNewButton1 = new JButton("Submit");
+			btnNewButton1.addActionListener(new submitListener());
+			btnNewButton1.setBounds(500, 475, 89, 23);
+			frame.getContentPane().add(btnNewButton1);
+		}
+	}
+	//When they select a slot, example: Slot 1 then the hall should show the available seats for that specific hall.
+	class submitListener implements ActionListener {
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			try {
+				slotInput = textField.getText();
+				if(slotInput.equals("")) {
+					JOptionPane.showMessageDialog(null, "Please enter a valid input", "Invalid Input", JOptionPane.ERROR_MESSAGE);
+				}else {frame.dispose();
+				SeatGUI seatGUI = new SeatGUI(dbControl);
+				seatGUI.frame.setVisible(true);}
+				
+			} catch (Exception e1) {
+				e1.printStackTrace();
+			}
 		}
 	}
 }

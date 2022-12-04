@@ -1,45 +1,38 @@
 package gui;
-import java.awt.EventQueue;
-
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+
 import java.awt.Font;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
 import javax.swing.JTextField;
+
+import controllers.AccountController;
+import controllers.BrowsingController;
+import controllers.CancellationController;
+import controllers.DatabaseController;
+import controllers.MovieTheatreApp;
+import controllers.PaymentController;
+
 import javax.swing.JButton;
 
 public class CancelTicketGUI {
 
-    private JFrame frame;
-    private JTextField textField;
-    private JTextField textField_1;
-
-    /**
-     * Launch the application.
-     */
-    public static void main(String[] args) {
-        EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                try {
-                    CancelTicketGUI window = new CancelTicketGUI();
-                    window.frame.setVisible(true);
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-            }
-        });
-    }
-
-    /**
-     * Create the application.
-     */
-    public CancelTicketGUI() {
-        initialize();
-    }
-
-    /**
-     * Initialize the contents of the frame.
-     */
-    private void initialize() {
+    public JFrame frame;
+    public JTextField textField;
+    public JTextField textField_1;
+    public static String email, Ticket; //What should the type of Ticket be
+    public static MovieTheatreApp app;
+	public static DatabaseController dbControl;
+	public static AccountController accControl;
+	public static BrowsingController brControl;
+	public static CancellationController canControl;
+	public static PaymentController payControl;
+ 
+    public CancelTicketGUI(DatabaseController dbControl) {
+    	CancelTicketGUI.dbControl = dbControl;
         frame = new JFrame();
         frame.setBounds(100, 100, 450, 208);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -71,7 +64,32 @@ public class CancelTicketGUI {
         textField_1.setColumns(10);
 
         JButton btnNewButton = new JButton("Submit");
+        btnNewButton.addActionListener(new RefundListener());
         btnNewButton.setBounds(172, 130, 89, 23);
         frame.getContentPane().add(btnNewButton);
     }
+    
+    class RefundListener implements ActionListener {
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			try {
+				//Check for the email and ticket in database then do the stuff below
+				//Also cancel the current ticket from the database
+				//Also make the seat available in the database.
+				email = textField.getText();
+				Ticket = textField_1.getText();
+				if(email.equals("") || Ticket.equals("")) {
+					JOptionPane.showMessageDialog(null, "Please enter a valid input", "Invalid Input", JOptionPane.ERROR_MESSAGE);
+					}
+				else {
+					frame.dispose();
+					JOptionPane.showMessageDialog(null, "4345345345", "Voucher Number", JOptionPane.PLAIN_MESSAGE);
+					WelcomeGUI afterRegistration= new WelcomeGUI(app, dbControl, accControl, brControl, canControl, payControl);
+					afterRegistration.frame.setVisible(true);
+				}
+			} catch (Exception e1) {
+				e1.printStackTrace();
+			}
+		}
+	}
 }

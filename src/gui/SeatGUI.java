@@ -1,44 +1,22 @@
+package gui;
 import java.awt.Color;
-import java.awt.EventQueue;
-
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+
+import controllers.DatabaseController;
+
 import java.awt.Font;
 import java.awt.Image;
 import javax.swing.JButton;
 
 public class SeatGUI {
 
-	private JFrame frame;
+	public JFrame frame;
+	public static DatabaseController dbControl;
 
-	/**
-	 * Launch the application.
-	 */
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					SeatGUI window = new SeatGUI();
-					window.frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
-
-	/**
-	 * Create the application.
-	 */
-	public SeatGUI() {
-		initialize();
-	}
-
-	/**
-	 * Initialize the contents of the frame.
-	 */
-	private void initialize() {
+	public SeatGUI(DatabaseController dbControl) {
+		SeatGUI.dbControl = dbControl;
 		frame = new JFrame();
 		frame.getContentPane().setBackground(new Color(255, 255, 255));
 		frame.setBounds(100, 100, 600, 670);
@@ -72,7 +50,11 @@ public class SeatGUI {
 				frame.getContentPane().add(lblNewLabel_1);
 			}
 		}
-		
+		//make the button's change colour is not available
+		//maybe add a button as well to go to the next GUI which is Payment
+		//If the user is a registered user just show a pop up that you ticket is booked and your saved card has been charged
+		//If the user is a guest the they will be taken to the paymentGUI
+		//The paymentGUI is not implemented but it's similar to the CreateAccout just need to store the data
 		int k = 1;
 		for(int i = 43; i < 500; i+=100) {
 			for(int j = 240; j < 600; j+=110) {

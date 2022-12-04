@@ -1,48 +1,38 @@
-import java.awt.EventQueue;
-
+package gui;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+
 import java.awt.Font;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
 import javax.swing.JTextField;
+
+import controllers.AccountController;
+import controllers.DatabaseController;
+import entities.RegisteredUser;
 import java.awt.Color;
+import java.util.*;
 import javax.swing.JButton;
 import javax.swing.JPasswordField;
 
 public class RUserLoginGUI {
 
-	private JFrame frame;
-	private JTextField textField;
-	private JPasswordField passwordField;
+	public JFrame frame;
+	public JTextField textField;
+	public JPasswordField passwordField;
+	public JButton btnLogin;
+	public static DatabaseController dbControl;
+	public static AccountController accControl;
+	public static String email, password;
+	char[] passwordEncrypt;
 
-	/**
-	 * Launch the application.
-	 */
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					RUserLoginGUI window = new RUserLoginGUI();
-					window.frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
-
-	/**
-	 * Create the application.
-	 */
-	public RUserLoginGUI() {
-		initialize();
-	}
-
-	/**
-	 * Initialize the contents of the frame.
-	 */
-	private void initialize() {
+	public  RUserLoginGUI(DatabaseController dbControl, AccountController accountController) {
+		RUserLoginGUI.dbControl = dbControl;
+		RUserLoginGUI.accControl = accountController;
 		frame = new JFrame();
-		frame.setBounds(100, 100, 452, 226);
+		frame.setBounds(100, 100, 452, 270);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.getContentPane().setLayout(null);
 		
@@ -71,12 +61,40 @@ public class RUserLoginGUI {
 		lblNewLabel.setBounds(158, 130, 122, 14);
 		frame.getContentPane().add(lblNewLabel);
 		
-		JButton btnLogin = new JButton("Login");
-		btnLogin.setBounds(158, 153, 84, 23);
-		frame.getContentPane().add(btnLogin);
-		
 		passwordField = new JPasswordField();
 		passwordField.setBounds(158, 105, 163, 20);
 		frame.getContentPane().add(passwordField);
+		
+		
+		btnLogin = new JButton("Login");
+		btnLogin.addActionListener(new CheckLoginListener());
+		btnLogin.setBounds(158, 153, 84, 23);
+		frame.getContentPane().add(btnLogin);
+	
+	}
+	class CheckLoginListener implements ActionListener {
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			try {
+				email = textField.getText();
+				passwordEncrypt = passwordField.getPassword();
+				password = String.valueOf(passwordEncrypt);
+				RegisteredUser rU = dbControl.getRegisteredUser(email, password);
+				if(Objects.isNull(rU)) {
+					JOptionPane.showMessageDialog(null, "Invalid Login Details", "Login Error", JOptionPane.ERROR_MESSAGE);
+					frame.dispose();
+					RUserLoginGUI loginGUI = new RUserLoginGUI(dbControl, accControl);
+					loginGUI.frame.setVisible(true);
+				}
+				else {
+					frame.dispose();
+					TheatreGUI theatreGUI = new TheatreGUI(dbControl);
+					theatreGUI.frame.setVisible(true);
+				}
+				
+			} catch (Exception e1) {
+				e1.printStackTrace();
+			}
+		}
 	}
 }
