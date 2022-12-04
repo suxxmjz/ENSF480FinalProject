@@ -20,13 +20,22 @@ class Voucher{
 }
 
 public class User{
+	private String firstName;
+	private String lastName;
+	private String userAddress;
+	private String userEmail;
+	private String password;
+	private int cardNumber;
     private ArrayList<Ticket> tickets;
 	private String email;
 	private ArrayList<Voucher> userVouchers;
 
+	public User(String firstName, String lastName, String userAddress, String userEmail, String password, int cardNumber){
+	}
+	
 	public User() {
 		tickets = new ArrayList<Ticket>();
-    }
+       }
 	
 	public void newTicket(Ticket tix) {
 		tickets.add(tix);
@@ -49,6 +58,30 @@ public class User{
         return email;
     }
 
+	public String getFirstName(){
+		return firstName;
+	}
+
+	
+	public String getLastName(){
+		return lastName;
+	}
+
+	public String getUserAddress(){
+		return userAddress;
+	}
+
+	public String getuserEmail(){
+		return userEmail;
+	}
+
+	public String getPassword(){
+		return password;
+	}
+
+	public int getcardNumber(){
+		return cardNumber;
+	}
 	public void addCredit(int credit, int creditAmount, boolean creditExpired) {
 
 		LocalDate rn  = LocalDate.now();
@@ -57,7 +90,3 @@ public class User{
 		userVouchers.add(newV);
 	}
 }
-
-	
-
-
