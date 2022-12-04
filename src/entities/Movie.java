@@ -3,7 +3,7 @@ package entities;
 
 import java.time.Duration;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
+
 
 public class Movie {
     private String movieName;

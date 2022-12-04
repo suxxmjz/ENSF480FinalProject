@@ -1,5 +1,7 @@
 package controllers;
 import gui.*;
+
+import java.time.LocalDateTime;
 import java.util.*;
 import entities.*;
 public class PaymentController {
@@ -11,7 +13,7 @@ public class PaymentController {
     private User currUser;
     
     public PaymentController(DatabaseController db){
-        this.db = db;
+        this.dbControl = db;
     }
     
     
@@ -21,8 +23,7 @@ public class PaymentController {
 
     public void makePayment(User user, Ticket theT){
         currUser = user;
-        payTab = new PaymentGUI(user,this);
-        payTab.initialize();
+        payTab = new PaymentGUI();
         // String email = user.getEmail();
         // boolean checkReg = checkRegisterUser(email);
         // // tickets = currUser.getTickets();
@@ -37,8 +38,10 @@ public class PaymentController {
         // }
         // for (Ticket each : tickets) {
             dbControl.addTicket(theT);
-            user.newTicket(theT);
-            dbControl.updateSeat(theT.getMovieName(), theT.getShowingTime(), theT.getSeatNo(), false);
+            currUser.newTicket(theT);
+            Showtime theShowTime = theT.getShowtimeObj();
+            int theSeat = theT.getSeatNo();
+            dbControl.updateSeat(theShowTime, theSeat);
         //}
         // currUser.clearTicketList();
     }

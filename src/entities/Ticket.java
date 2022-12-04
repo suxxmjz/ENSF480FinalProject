@@ -1,24 +1,27 @@
 package entities;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 public class Ticket {
 
     private int id;
     private int seatNo;
-    private String showroom_ID;
-    private String movieName;
+    private Showtime showTimeTicket;
+
+
     private LocalDate datePurchased;
-    private LocalDate showing_time;
+   
     private String email;
     private double price; 
 
-    public Ticket(int id, int seatNo, String showroom_ID, String movieName, LocalDate datePurchased, LocalDate showing_time, String email, double price){
+    public Ticket(int id, int seatNo, String showroom_ID, String movieName, String theatre, LocalDate datePurchased, LocalDateTime showing_time, String email, double price){
+        
+        showTimeTicket = new Showtime(showroom_ID, theatre, movieName, showing_time);
         this.id = id;
         this.seatNo = seatNo;
-        this.showroom_ID = showroom_ID;
-        this.movieName = movieName;
+   
         this.datePurchased = datePurchased;
-        this.showing_time = showing_time;
+       
         this.email = email;
         this.price= price;
     }
@@ -31,20 +34,12 @@ public class Ticket {
         return seatNo;
     }
 
-    public String getShowroomID(){
-        return showroom_ID;
-    }
-
-    public String getMovieName(){
-        return movieName;
+    public Showtime getShowtimeObj(){
+        return showTimeTicket;
     }
 
     public LocalDate getDatePurchased(){
         return datePurchased;
-    }
-
-    public LocalDate getShowingTime(){
-        return showing_time;
     }
 
     public String getEmail(){
