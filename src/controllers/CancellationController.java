@@ -56,7 +56,7 @@ public class CancellationController {
         } else {
             registeredCancel(currUser, ticket);
         }
-        boolean deleted = databaseController.removeTicketReceipt(id);
+        boolean deleted = databaseController.deleteTicket(id);
         if (deleted) {
             databaseController.updateSeat(ticket.getMovieName(), ticket.getShowingTime(), ticket.getSeatNo(), true);
         }
@@ -80,7 +80,7 @@ public class CancellationController {
         else
             return false;
     }
-    }
+    
 
     private void ordinaryCancel(User user, Ticket ticket) throws Exception {
         refundGUI.OrdinaryCancelGUI();
