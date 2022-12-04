@@ -12,22 +12,22 @@ public class PaymentController {
     private User currUser;
    
     
-    public PaymentController(DatabaseController db){
+    public PaymentController(DatabaseController db){ //intialize database controller to current instance
         this.dbControl = db;
     }
     
     
-    public void currApp(MovieTheatreApp app){
+    public void currApp(MovieTheatreApp app){ //intialize movieTheatre controller to current instance
         this.app = app;
     }
 
-    public void makePayment(User user, Ticket theT){
+    public void makePayment(User user, Ticket theT){ //function to make the payment
         currUser = user;
         payTab = new PaymentGUI();
-            currUser.newTicket(theT);
+            currUser.newTicket(theT); //add new ticket under user email
             Showtime theShowTime = theT.getShowtimeObj();
             int theSeat = theT.getSeatNo();
-            dbControl.changeToBooked(theShowTime, theSeat);
+            dbControl.changeToBooked(theShowTime, theSeat); //change the seat to booked
        
     }
 
