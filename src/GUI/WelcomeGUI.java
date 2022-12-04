@@ -5,8 +5,10 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 
 import java.awt.Font;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
-public class WelcomeGUI {
+public class WelcomeGUI{
 
 	private JFrame frame;
 
@@ -25,18 +27,7 @@ public class WelcomeGUI {
 			}
 		});
 	}
-
-	/**
-	 * Create the application.
-	 */
-	public WelcomeGUI() {
-		initialize();
-	}
-
-	/**
-	 * Initialize the contents of the frame.
-	 */
-	private void initialize() {
+	private WelcomeGUI() {
 		frame = new JFrame();
 		frame.setBounds(100, 100, 683, 157);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -47,20 +38,78 @@ public class WelcomeGUI {
 		lblNewLabel.setBounds(244, 11, 179, 44);
 		frame.getContentPane().add(lblNewLabel);
 		
-		JButton btnCancelPayment = new JButton("Continue as guest");
-		btnCancelPayment.setBounds(191, 80, 140, 23);
-		frame.getContentPane().add(btnCancelPayment);
+		JButton btnGuest = new JButton("Continue as guest");
+		btnGuest.addActionListener(new GuestListener());
+		btnGuest.setBounds(191, 80, 140, 23);
+		frame.getContentPane().add(btnGuest);
 		
-		JButton btnMakePayment = new JButton("Create Account");
-		btnMakePayment.setBounds(49, 80, 132, 23);
-		frame.getContentPane().add(btnMakePayment);
+		JButton btnMakeAccount = new JButton("Create Account");
+		btnMakeAccount.addActionListener(new MakeAccountListener());
+		btnMakeAccount.setBounds(49, 80, 132, 23);
+		frame.getContentPane().add(btnMakeAccount);
 		
 		JButton btnLogin = new JButton("Login");
+		btnLogin.addActionListener(new LoginListener());
 		btnLogin.setBounds(341, 80, 141, 23);
 		frame.getContentPane().add(btnLogin);
 		
-		JButton btnLogin_1 = new JButton("Cancel Ticket");
-		btnLogin_1.setBounds(492, 80, 140, 23);
-		frame.getContentPane().add(btnLogin_1);
+		JButton btnCanelTicket = new JButton("Cancel Ticket");
+		btnCanelTicket.addActionListener(new CancelListener());
+		btnCanelTicket.setBounds(492, 80, 140, 23);
+		frame.getContentPane().add(btnCanelTicket);
 	}
+
+	
+	class MakeAccountListener implements ActionListener {
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			try {
+				frame.dispose();
+				app.register();
+			} catch (Exception e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
+		}
+	}
+	
+	class LoginListener implements ActionListener {
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			try {
+				frame.dispose();
+				app.login();
+			} catch (Exception e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
+		}
+	}
+	
+	class CancelListener implements ActionListener {
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			try {
+				frame.dispose();
+				app.cancel();
+			} catch (Exception e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
+		}
+	}
+	
+	class GuestListener implements ActionListener {
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			try {
+				frame.dispose();
+				app.browse();
+			} catch (Exception e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
+		}
+	}
+
 }
