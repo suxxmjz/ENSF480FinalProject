@@ -91,12 +91,11 @@ DROP TABLE IF EXISTS `seats` ;
 
 CREATE TABLE seats (
   SeatNumber int NOT NULL,
-  RowNumber int NOT NULL,
   Available BIT(1) NOT NULL,
   Movie VARCHAR(50) NOT NULL,
   ShowTime DATETIME NOT NULL,
   ShowRoom VARCHAR(4) NOT NULL,
-  PRIMARY KEY (SeatNumber, RowNumber, Movie, ShowTime, ShowRoom),
+  PRIMARY KEY (SeatNumber, Movie, ShowTime, ShowRoom),
   FOREIGN KEY (ShowRoom, Movie, ShowTime) REFERENCES Showtime(showroom_ID, movie_name, showing_time)
 );
 
@@ -105,13 +104,12 @@ DROP TABLE IF EXISTS `ticketSeats` ;
 CREATE TABLE ticketSeats (
   id int NOT NULL AUTO_INCREMENT,
   SeatNumber int NOT NULL,
-  RowNumber int NOT NULL,
   Available BIT(1) NOT NULL,
   Movie VARCHAR(50) NOT NULL,
   ShowTime DATETIME NOT NULL,
   ShowRoom VARCHAR(4) NOT NULL,
-  PRIMARY KEY (id, SeatNumber, RowNumber, Movie, ShowTime, ShowRoom),
-  FOREIGN KEY (SeatNumber, RowNumber, Movie, ShowTime, ShowRoom) REFERENCES seats(SeatNumber, RowNumber, Movie, ShowTime, ShowRoom),
+  PRIMARY KEY (id, SeatNumber, Movie, ShowTime, ShowRoom),
+  FOREIGN KEY (SeatNumber, Movie, ShowTime, ShowRoom) REFERENCES seats(SeatNumber, Movie, ShowTime, ShowRoom),
   FOREIGN KEY(id) REFERENCES ticket(id)
 )
 
