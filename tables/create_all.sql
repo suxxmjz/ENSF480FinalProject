@@ -67,6 +67,7 @@ CREATE TABLE ticket (
   datePurchased DATE NOT NULL, /* dd-mm-yyyy */
   showing_time DATETIME		NOT NULL,
   email varchar(50) NOT NULL,
+  price float NOT NULL,
   FOREIGN KEY (showroom_ID, movieName, showing_time) REFERENCES Showtime(showroom_ID, movie_name, showing_time),
   PRIMARY KEY (id)
 );
