@@ -149,19 +149,22 @@ public class DatabaseController {
 	   return List;
    }
    
-   public ArrayList<Seats> getAllSeats(Showtime time){
-	   ArrayList<Showroom> List = new ArrayList<Showroom>();
-	   String query = "SELECT * FROM 480_final_project.showroom";
-	   String ID;
-	   String theatre;
+   public ArrayList<Seat> getAllSeats(Showtime time){
+	   ArrayList<Seat> List = new ArrayList<Seat>();
+	   String query = "SELECT * FROM 480_final_project.seats WHERE Showtime = ? AND Movie = ? AND ShowRoom = ?";
+	   int seatNum;
+	   boolean available;
 	   
 	   try {
 		   stmt = dbConnect.prepareStatement(query);
+		   stmt.setTimestamp(1, Timestamp.valueOf(time.getShowingTime()));
+		   stmt.setString(2, time.getMovie());
+		   stmt.setString(3, time.getShowRoom());
 		   results = stmt.executeQuery();
 		   while(results.next()) {
-			   ID = results.getString("showroom_ID");
-			   theatre = results.getString("theatre_name");
-			   List.add(new Showroom(ID, theatre));
+			   seatNum = results.getInt("SeatNumber");
+			   available = results.getBoolean("Available");
+			   List.add(new Seat(seatNum, available, time.getMovie(), time.getShowingTime(), time.getShowRoom()));
 		   }
 		   stmt.close();
 		   results.close();
@@ -171,12 +174,157 @@ public class DatabaseController {
 	   return List;
    }
    
+   public ArrayList<Seat> getAvailableSeats(Showtime time){
+	   ArrayList<Seat> List = new ArrayList<Seat>();
+	   String query = "SELECT * FROM 480_final_project.seats WHERE Showtime = ? AND Movie = ? AND ShowRoom = ?";
+	   int seatNum;
+	   boolean available;
+	   
+	   try {
+		   stmt = dbConnect.prepareStatement(query);
+		   stmt.setTimestamp(1, Timestamp.valueOf(time.getShowingTime()));
+		   stmt.setString(2, time.getMovie());
+		   stmt.setString(3, time.getShowRoom());
+		   results = stmt.executeQuery();
+		   while(results.next()) {
+			   seatNum = results.getInt("SeatNumber");
+			   available = results.getBoolean("Available");
+			   if(available)
+				   List.add(new Seat(seatNum, available, time.getMovie(), time.getShowingTime(), time.getShowRoom()));
+		   }
+		   stmt.close();
+		   results.close();
+	   } catch(Exception e) {
+		   System.out.println(e);
+	   }
+	   return List;
+   }
+   
+   public ArrayList<Seat> getBookedSeats(Showtime time){
+	   ArrayList<Seat> List = new ArrayList<Seat>();
+	   String query = "SELECT * FROM 480_final_project.seats WHERE Showtime = ? AND Movie = ? AND ShowRoom = ?";
+	   int seatNum;
+	   boolean available;
+	   
+	   try {
+		   stmt = dbConnect.prepareStatement(query);
+		   stmt.setTimestamp(1, Timestamp.valueOf(time.getShowingTime()));
+		   stmt.setString(2, time.getMovie());
+		   stmt.setString(3, time.getShowRoom());
+		   results = stmt.executeQuery();
+		   while(results.next()) {
+			   seatNum = results.getInt("SeatNumber");
+			   available = results.getBoolean("Available");
+			   if(!available)
+				   List.add(new Seat(seatNum, available, time.getMovie(), time.getShowingTime(), time.getShowRoom()));
+		   }
+		   stmt.close();
+		   results.close();
+	   } catch(Exception e) {
+		   System.out.println(e);
+	   }
+	   return List;
+   }
+   
+   public void updateSeat(Showtime time, int ID) {
+	   String query = "UPDATE 480_final_project.seats SET Available=?  WHERE Showtime = ? AND Movie = ? AND ShowRoom = ?";
+	   try {
+		   stmt = dbConnect.prepareStatement(query);
+		   stmt.setInt(1, ID);
+		   stmt.setTimestamp(2, Timestamp.valueOf(time.getShowingTime()));
+		   stmt.setString(3, time.getMovie());
+		   stmt.setString(4, time.getShowRoom());
+		   stmt.executeUpdate();
+		   
+		   stmt.close();
+//		   results.close();
+	   } catch(Exception e) {
+		   System.out.println(e);
+	   }
+   }
+   
+   public void addUser(User user) {
+	   String query = "INSERT INTO `480_final_project`.`users` VALUES(?,?,?,?,?,?, 0)";
+	   try {
+		   stmt = dbConnect.prepareStatement(query);
+		   stmt.setString(1, user.getFirstName());
+		   stmt.setString(2, user.getLastName());
+		   stmt.setString(3, user.getUserAddress());
+		   stmt.setInt(4, user.getcardNumber());
+		   stmt.setString(5, user.getuserEmail());
+		   stmt.setString(6, user.getPassword());
+		   stmt.executeUpdate();
+		   stmt.close();
+//		   results.close();
+	   } catch(Exception e) {
+		   System.out.println(e);
+	   }
+   }
+   
+   public void addRegisteredUser(RegisteredUser user) {
+	   String query = "INSERT INTO `480_final_project`.`users` VALUES(?,?,?,?,?,?, 1)";
+	   try {
+		   stmt = dbConnect.prepareStatement(query);
+		   stmt.setString(1, user.getFirstName());
+		   stmt.setString(2, user.getLastName());
+		   stmt.setString(3, user.getUserAddress());
+		   stmt.setInt(4, user.getcardNumber());
+		   stmt.setString(5, user.getuserEmail());
+		   stmt.setString(6, user.getPassword());
+		   stmt.executeUpdate();
+		   stmt.close();
+//		   results.close();
+	   } catch(Exception e) {
+		   System.out.println(e);
+	   }
+   }
+   
+   public User getUser(String username, String password) {
+	   String query = "SELECT * FROM 480_final_project.users WHERE Email =? AND Password = ?";
+	   User returnObj = null;
+	   try {
+		   stmt = dbConnect.prepareStatement(query);
+		   stmt.setString(1, username);
+		   stmt.setString(2, password);
+		   results = stmt.executeQuery();
+		   if(results.next()) {
+			    String firstName = results.getString("Firstname");
+				String lastName = results.getString("Lastname");
+				String userAddress = results.getString("UserAddress");
+				int cardNumber = results.getInt("CardNumber");
+			   returnObj = new User(firstName, lastName, userAddress, username, password, cardNumber);
+		   }
+		   stmt.close();
+		   results.close();
+	   } catch(Exception e) {
+		   System.out.println(e);
+	   }
+	   return returnObj;
+   }
+   
+   public boolean checkRegisterStatus(String email) {
+	   String query = "SELECT * FROM 480_final_project.users WHERE Email =?";
+	   boolean result = false;
+	   try {
+		   stmt = dbConnect.prepareStatement(query);
+		   stmt.setString(1, email);
+		   results = stmt.executeQuery();
+		   if(results.next()) {
+			    result = results.getBoolean("is_registered");
+		   }
+		   stmt.close();
+		   results.close();
+	   } catch(Exception e) {
+		   System.out.println(e);
+	   }
+	   return result;
+   }
+   
    public static void main(String[] args) throws SQLException {
 	   DatabaseController test = new DatabaseController();
-	   Movie i = test.getMovie("movie2");
-//	   for(Showroom i : Movie) {
-		   System.out.println("Movie is " + i.getMovieName() + " genre is " + i.getGenre()+ " runtime is " + i.getRunTime() + "announcemnt is at : " + i.getAnnouncement());
-//	   }
+	   RegisteredUser i = new RegisteredUser("john", "doe", "place","johnRU@email.com" , "1234", 987654321);
+	   test.addRegisteredUser(i);
+	   
    
    }
 }

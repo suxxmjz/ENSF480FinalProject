@@ -1,6 +1,8 @@
 package entities;
 import java.time.LocalDateTime;
 import java.time.Duration;
+import controllers.DatabaseController;
+import java.util.*;
 
 public class Showtime {
 	   private String showroom_ID;
@@ -53,6 +55,17 @@ public class Showtime {
 		   if(duration.toHours() >= 72)
 			   return true;
 		   else
+			   return false;
+	   }
+	   
+	   boolean getSeatStatus(DatabaseController DB, int SeatNum) {
+		   ArrayList<Seat> temp = DB.getAvailableSeats(this);
+		   for(Seat i : temp) {
+			   if (i.getseatNumber() == SeatNum) {
+				   return true;
+			   		}
+			   }
+//		   }
 			   return false;
 	   }
 }
