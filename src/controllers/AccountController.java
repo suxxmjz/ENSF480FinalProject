@@ -44,8 +44,7 @@ public class AccountController {
 	}
 	
 	public void login(User user) throws Exception {		
-	acc = new CreateAccountGUI ("Login", this, user);
-
+	acc = new WelcomeGUI("Login", this, user);
 	}
 
 public void checkLogin (User user) {		
@@ -70,5 +69,5 @@ public void checkLogin (User user) {
 //		}
 //	}
 		}
-}
+	}
 }
