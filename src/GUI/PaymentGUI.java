@@ -9,7 +9,7 @@ import javax.swing.JTextField;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 
-public class Payment {
+public class PaymentGUI {
 
 	private JFrame frame;
 	private JTextField textField;
@@ -25,7 +25,7 @@ public class Payment {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					Payment window = new Payment();
+					PaymentGUI window = new PaymentGUI();
 					window.frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -37,7 +37,7 @@ public class Payment {
 	/**
 	 * Create the application.
 	 */
-	public Payment() {
+	public PaymentGUI() {
 		initialize();
 	}
 

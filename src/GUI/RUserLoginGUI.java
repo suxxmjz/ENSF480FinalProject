@@ -8,7 +8,7 @@ import java.awt.Color;
 import javax.swing.JButton;
 import javax.swing.JPasswordField;
 
-public class RUserLogin {
+public class RUserLoginGUI {
 
 	private JFrame frame;
 	private JTextField textField;
@@ -21,7 +21,7 @@ public class RUserLogin {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					RUserLogin window = new RUserLogin();
+					RUserLoginGUI window = new RUserLoginGUI();
 					window.frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -33,7 +33,7 @@ public class RUserLogin {
 	/**
 	 * Create the application.
 	 */
-	public RUserLogin() {
+	public RUserLoginGUI() {
 		initialize();
 	}
 

@@ -6,7 +6,7 @@ import java.awt.Font;
 import javax.swing.JTextField;
 import javax.swing.JButton;
 
-public class CreateAccount {
+public class CreateAccountGUI {
 
 	private JFrame frame;
 	private JTextField textField;
@@ -23,7 +23,7 @@ public class CreateAccount {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					CreateAccount window = new CreateAccount();
+					CreateAccountGUI window = new CreateAccountGUI();
 					window.frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -35,7 +35,7 @@ public class CreateAccount {
 	/**
 	 * Create the application.
 	 */
-	public CreateAccount() {
+	public CreateAccountGUI() {
 		initialize();
 	}
 

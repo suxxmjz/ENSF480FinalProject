@@ -6,7 +6,7 @@ import javax.swing.JLabel;
 
 import java.awt.Font;
 
-public class Welcome {
+public class WelcomeGUI {
 
 	private JFrame frame;
 
@@ -17,7 +17,7 @@ public class Welcome {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					Welcome window = new Welcome();
+					WelcomeGUI window = new WelcomeGUI();
 					window.frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -29,7 +29,7 @@ public class Welcome {
 	/**
 	 * Create the application.
 	 */
-	public Welcome() {
+	public WelcomeGUI() {
 		initialize();
 	}
 

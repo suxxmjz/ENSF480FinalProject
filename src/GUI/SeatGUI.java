@@ -8,7 +8,7 @@ import java.awt.Font;
 import java.awt.Image;
 import javax.swing.JButton;
 
-public class Seats {
+public class SeatGUI {
 
 	private JFrame frame;
 
@@ -19,7 +19,7 @@ public class Seats {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					Seats window = new Seats();
+					SeatGUI window = new SeatGUI();
 					window.frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -31,7 +31,7 @@ public class Seats {
 	/**
 	 * Create the application.
 	 */
-	public Seats() {
+	public SeatGUI() {
 		initialize();
 	}
 
