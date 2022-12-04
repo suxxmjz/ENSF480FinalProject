@@ -1,35 +1,35 @@
 package gui;
 
-import java.awt.EventQueue;
-
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 
+import controllers.AccountController;
+import controllers.BrowsingController;
+import controllers.CancellationController;
+import controllers.DatabaseController;
+import controllers.MovieTheatreApp;
+import controllers.PaymentController;
+
+import java.awt.EventQueue;
 import java.awt.Font;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
 public class WelcomeGUI{
 
-	private JFrame frame; 
+	public JFrame frame;
+	public static MovieTheatreApp app;
+	public static DatabaseController dbControl;
+	public static AccountController accControl;
+	public static BrowsingController brControl;
+	public static CancellationController canControl;
+	public static PaymentController payControl; 
 
 	/**
 	 * Launch the application.
-	 */
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					WelcomeGUI window = new WelcomeGUI();
-					window.frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
-	private WelcomeGUI() {
+	 */	
+	public WelcomeGUI(MovieTheatreApp app, DatabaseController dbControl, AccountController accControl, BrowsingController brControl, CancellationController canControl, PaymentController payControl) {
 		frame = new JFrame();
 		frame.setBounds(100, 100, 683, 157);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -67,10 +67,9 @@ public class WelcomeGUI{
 		public void actionPerformed(ActionEvent e) {
 			try {
 				frame.dispose();
-				CreateAccountGUI accountGUI = new CreateAccountGUI(dbControl, accControl, paycontrol);
+				CreateAccountGUI accountGUI = new CreateAccountGUI(dbControl, accControl);
 				accountGUI.frame.setVisible(true);
 			} catch (Exception e1) {
-				// TODO Auto-generated catch block
 				e1.printStackTrace();
 			}
 		}

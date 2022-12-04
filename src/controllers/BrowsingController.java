@@ -1,8 +1,8 @@
 package controllers;
 
-import Database.DatabaseController;
+import controllers.DatabaseController;
 import entities.*;
-import View.BrowsingGUI;
+import gui.MovieGUI;
 import java.time.LocalDate;
 import java.text.SimpleDateFormat;
 
@@ -11,7 +11,7 @@ import java.io.*;
 import java.util.*;
 public class BrowsingController {
 
-    private BrowsingGUI browser;
+    private MovieGUI movieView;
 	private DatabaseController dbControl; 
 	private MovieTheatreApp app;
 

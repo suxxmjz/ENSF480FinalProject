@@ -3,7 +3,6 @@ package controllers;
 import javax.swing.UIManager;
 import gui.WelcomeGUI;
 import entities.*;
-import controllers.*;
 
 
 public class MovieTheatreApp {
@@ -25,16 +24,16 @@ public class MovieTheatreApp {
         
         public static void main(String[] args) {
             DatabaseController dbControl = new DatabaseController();
-            AccountController acControl = new Account
             MovieTheatreApp app = new MovieTheatreApp(dbControl);
+            BrowsingController brControl = new BrowsingController(dbControl, app);
+            CancellationController canControl = new CancellationController(dbControl);
+            PaymentController payControl = new PaymentController(dbControl);
+            AccountController accControl = new AccountController(dbControl, app);
+            
                 try {
                     UIManager.setLookAndFeel(UIManager.getCrossPlatformLookAndFeelClassName());
-                    if (app.user.getClass() == User.class) {
-                        app.start = new WelcomeGUI(app);
-                    }
-                    else {
-                        app.start = new WelcomeGUI ("Account singed in", app);
-                    }
+                    WelcomeGUI window = new WelcomeGUI(app, dbControl, accControl, brControl, canControl, payControl);
+                    window.frame.setVisible(true);
                 } catch (Exception e){
                     System.out.println(e);
                 }

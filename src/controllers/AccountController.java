@@ -15,9 +15,9 @@ public class AccountController {
 		app = movieTheater;
 	}
 	
-	public void createAccount() {
-		this.acc = new CreateAccountGUI ("Create an Account", this);
-	}
+//	public void createAccount() {
+//		this.acc = new CreateAccountGUI ("Create an Account", this);
+//	}
 	
 	public MovieTheatreApp getApp () {
 		return app;

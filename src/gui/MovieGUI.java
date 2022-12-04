@@ -1,3 +1,4 @@
+package gui;
 import java.awt.EventQueue;
 import java.awt.Font;
 import java.awt.Image;
@@ -40,7 +41,7 @@ public class MovieGUI {
 	 */
 	private void initialize() {
 		
-		boolean userStatus = false;
+		boolean userStatus = true;
 		if(userStatus) {
 			frame = new JFrame();
 			frame.setBounds(100, 100, 1100, 556);

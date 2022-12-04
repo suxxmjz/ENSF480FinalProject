@@ -37,8 +37,8 @@ public class DatabaseController {
 	   this.dbURL = "jdbc:mysql://localhost/480_final_project";
 
        //  Database credentials
-       this.username = "user";
-       this.password = "aa";
+       this.username = "root";
+       this.password = "password1234";
        
        try{
            dbConnect = DriverManager.getConnection(this.dbURL, this.username, this.password);
