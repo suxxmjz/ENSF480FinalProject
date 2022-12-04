@@ -4,9 +4,9 @@ public class Theatre {
 
     public Theatre(String theatreName) {
         this.theatreName = theatreName;
-    }
+    } //ctor for theatre
 
     public String getTheatreName() {
         return theatreName;
-    }
+    } //getter for theatrename
 }
