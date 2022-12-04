@@ -9,7 +9,6 @@ public class RegisteredUser extends User {
             private String userEmail;
             private String password;
             private int cardNumber;
-            private ArrayList<Ticket> userTickets;
  
             public RegisteredUser(String firstName, String lastName, String userAddress, String userEmail, String password, int cardNumber) {
                 this.firstName = firstName;
@@ -20,9 +19,6 @@ public class RegisteredUser extends User {
                 this.cardNumber = cardNumber;          
             }
 
-                public ArrayList<Ticket> getUserTickets(){
-                    return userTickets;
-                }
             
                 public String getFirstName(){
                     return firstName;
