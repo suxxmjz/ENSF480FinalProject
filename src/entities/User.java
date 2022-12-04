@@ -5,26 +5,6 @@ import java.time.*;
 import java.lang.Math;
 
 
-//Voucher class to generate voucher
-//created by generating random numbers
-class Voucher{
-	int code;
-	double amount;
-	LocalDate expirationDate;
-    String email;
-
-         //constructor
-	Voucher(double credit, LocalDate expirationDate, String email){
-		int max = 1000000;
-		int min = 10000;
-		int range = max - min + 1;
-		this.amount = credit;
-		this.expirationDate = expirationDate;
-		this.code = (int)(Math.random() * range) + min;
-        this.email = email;
-	}
-}
-
 public class User{
 	private String firstName;
 	private String lastName;
@@ -111,7 +91,7 @@ public class User{
 	//function to delete voucher from database when applied to an account
      public void deleteVoucher(int codeV, String emailV){
         for(int i =0; i < userVouchers.size(); i++){
-            if(userVouchers.get(i).code == codeV && userVouchers.get(i).email == emailV){
+            if(userVouchers.get(i).getCode() == codeV && userVouchers.get(i).getEmail() == emailV){
                 userVouchers.remove(i);
                 return;
 
