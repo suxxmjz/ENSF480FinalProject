@@ -6,14 +6,14 @@ import java.lang.Math;
 
 class Voucher{
 	int code;
-	int amount;
+	double amount;
 	LocalDate expirationDate;
 
-	Voucher(int amount, LocalDate expirationDate){
+	Voucher(double credit, LocalDate expirationDate){
 		int max = 1000000;
 		int min = 10000;
 		int range = max - min + 1;
-		this.amount = amount;
+		this.amount = credit;
 		this.expirationDate = expirationDate;
 		this.code = (int)(Math.random() * range) + min;
 	}
@@ -82,11 +82,11 @@ public class User{
 	public int getcardNumber(){
 		return cardNumber;
 	}
-	public void addCredit(int credit, int creditAmount, boolean creditExpired) {
+	public void addCredit(double d) {
 
 		LocalDate rn  = LocalDate.now();
 		LocalDate expr = rn.plusYears(1);
-		Voucher newV = new Voucher(credit,expr);
+		Voucher newV = new Voucher(d,expr);
 		userVouchers.add(newV);
 	}
 }

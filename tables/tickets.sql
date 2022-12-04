@@ -7,6 +7,7 @@ CREATE TABLE ticket (
   movieName varchar(50) NOT NULL,
   datePurchased varchar(10) NOT NULL, /* dd-mm-yyyy */
   email varchar(50) NOT NULL,
+  price float NOT NULL,
   FOREIGN KEY (showroom_ID) REFERENCES Showroom(showroom_ID)
   PRIMARY KEY (id)
 );
