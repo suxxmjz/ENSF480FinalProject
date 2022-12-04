@@ -12,7 +12,7 @@ public class ticketSeat {
     private String showRoom;
     
     public ticketSeat (int id, int seatNumber, String rowNumber, boolean available, String movieName, LocalDateTime showTime,
-            String showRoom) {
+            String showRoom) { //ctor for ticketSeat
     	 this.id = id;
     	 this.seatNumber = seatNumber;
          this.rowNumber = rowNumber;
@@ -21,31 +21,31 @@ public class ticketSeat {
          this.showRoom = showRoom;
     }
     
-    public int getID(){
+    public int getID(){ //getter for id
         return id;
     }
     
-    public int getseatNumber() {
+    public int getseatNumber() { //getter for seatNumber
         return seatNumber;
     }
 
-    public String getRowNumber() {
+    public String getRowNumber() { //getter for seat row
         return rowNumber;
     }
 
-    public String getMovieName() {
+    public String getMovieName() { //getter for movie
         return movieName;
     }
 
-    public LocalDateTime getShowTime() {
+    public LocalDateTime getShowTime() { //getter for showtime
         return showTime;
     }
 
-    public String getShowRoom() {
+    public String getShowRoom() { //getter for showroom
         return showRoom;
     }
 
-    public boolean available() {
+    public boolean available() { //check if seat is available
         return this.available;
     }
 }
