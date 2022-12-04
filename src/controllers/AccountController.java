@@ -10,7 +10,7 @@ public class AccountController {
 	private DatabaseController dbControl;
 	private MovieTheatreApp app;
 	
-	public AccountController(DatabaseController db, MovieTheatreApp movieTheater) {
+	public AccountController() {
 		dbControl = db;
 		app = movieTheater;
 	}
@@ -43,33 +43,32 @@ public class AccountController {
 		}
 	}
 	
-//	public void login(User user) throws Exception {
-//		
-//		acc = new CreateAccountGUI ("Login", this, user);
-//	
-//	}
-//	
-//	public void checkLogin (User user) {
-//		
-//		Information information = dbControl.getAccount(acc.getEmail(), acc.getPassword());
-//		if (information == null) {
-//			acc.dispose();
+	public void login(User user) throws Exception {		
+	acc = new CreateAccountGUI ("Login", this, user);
+
+	}
+
+public void checkLogin (User user) {		
+		User information = dbControl.getAccount(acc.getEmail(), acc.getPassword());
+		if (information == null) {
+			acc.dispose();
 //			acc.displayInvalidLogin();
-//			try {
-//				login(user);
-//				} catch (Exception e) {
-//					e.printStackTrace();
-//				}
-//			}
-//		else {
-//			((RegisteredUser) user).getInformation();
-//			app.setUser(user);
-//			acc.setUser(user);
-//			acc.dispose();
-//			acc.displayLoginConfirmation();	
-//			app.userSelection();
-//			app.loginStatus(true);
+			try {
+				login(user);
+        		} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+		else {
+		//	((RegisteredUser) user).getInformation();
+		//	app.setUser(user);
+		//	acc.setUser(user);
+		//	acc.dispose();
+		 //	acc.displayLoginConfirmation();	
+			app.userSelection();
+			app.loginStatus(true);
 //		}
 //	}
-	
+		}
+}
 }
