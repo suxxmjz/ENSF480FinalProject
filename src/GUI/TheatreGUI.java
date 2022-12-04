@@ -8,7 +8,7 @@ import java.awt.Image;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 
-public class Theatre {
+public class TheatreGUI {
 
 	private JFrame frame;
 
@@ -19,7 +19,7 @@ public class Theatre {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					Theatre window = new Theatre();
+					TheatreGUI window = new TheatreGUI();
 					window.frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -31,7 +31,7 @@ public class Theatre {
 	/**
 	 * Create the application.
 	 */
-	public Theatre() {
+	public TheatreGUI() {
 		initialize();
 	}
 
