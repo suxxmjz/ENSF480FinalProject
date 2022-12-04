@@ -24,8 +24,6 @@ public class AccountController {
 	}
 
 	public void register() throws Exception{
-		
-		
 		dbControl.addRegisteredUser(acc.getRU());
 		String email = acc.getRU().getEmail();
 		String password = acc.getRU().getPassword();
@@ -34,8 +32,8 @@ public class AccountController {
 //			acc.displayInvalidRegistration();
 		}
 		else {
-			System.out.println("successfully added RU");
-//			app.loginStatus(true);
+			System.out.println("User registered successfully");
+		    app.loginStatus(true);
 ////			acc.displayConfirmedRegistration(acc.getCreationDate().toString());
 //			app.setUser(information);
 ////			((RegisteredUser) app.getUser()).getInformation();
