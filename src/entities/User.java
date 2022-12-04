@@ -1,52 +1,101 @@
 package entities;
 
-import java.time.LocalDate;
+import java.util.*;
+import java.time.*;  
+import java.lang.Math;
 
-public class Voucher{
-	private int code;
-	private double amount;
-	private LocalDate expirationDate;
+
+public class User{
+	private String firstName;
+	private String lastName;
+	private String userAddress;
+	private String userEmail;
+	private String password;
+	private int cardNumber;
+        private ArrayList<Ticket> tickets;
 	private String email;
-
-	Voucher(double amount, LocalDate expirationDate, String email){
-		int max = 1000000;
-		int min = 10000;
-		int range = max - min + 1;
-		this.setAmount(amount);
-		this.setExpirationDate(expirationDate);
-		this.setCode((int)(Math.random() * range) + min);
-		this.setEmail(email);
+	private ArrayList<Voucher> userVouchers;
+         
+	//User constructor
+	public User(String firstName, String lastName, String userAddress, String userEmail, String password, int cardNumber){
+	}
+	
+	
+	public User() {
+		tickets = new ArrayList<Ticket>();
+       }
+	
+	//to get a new ticket
+	public void newTicket(Ticket tix) {
+		tickets.add(tix);
 	}
 
-	public int getCode() {
-		return code;
+	//array to retrieve tickets
+	public ArrayList<Ticket> getTickets() {
+		return tickets;
+	}
+	
+	//to remove tickets
+	public void clearTicketList() {
+		tickets.clear();
 	}
 
-	public void setCode(int code) {
-		this.code = code;
+        //to link email to user
+	public void addEmail(String mail){
+		this.email = mail;
+	}
+        
+	//getter for email
+	public String getEmail(){
+        return email;
+    }
+        //getter for first name
+	public String getFirstName(){
+		return firstName;
 	}
 
-	public double getAmount() {
-		return amount;
+	//getter for last name
+	public String getLastName(){
+		return lastName;
 	}
 
-	public void setAmount(double amount) {
-		this.amount = amount;
+	//getter for user address
+	public String getUserAddress(){
+		return userAddress;
 	}
+        
+	//getter for user email
+	public String getuserEmail(){
+		return userEmail;
+	}
+ 
+	//getter for password
+	public String getPassword(){
+		return password;
+	}
+ 
+	//getter for user's card number
+	public int getcardNumber(){
+		return cardNumber;
+	}
+	
+	//function to add voucher credit to user's account
+	public void addCredit(double d, String e) {
 
-	public LocalDate getExpirationDate() {
-		return expirationDate;
+		LocalDate rn  = LocalDate.now();
+		LocalDate expr = rn.plusYears(1);
+		Voucher newV = new Voucher(d,expr, e);
+		userVouchers.add(newV);
 	}
+     
+	//function to delete voucher from database when applied to an account
+     public void deleteVoucher(int codeV, String emailV){
+        for(int i =0; i < userVouchers.size(); i++){
+            if(userVouchers.get(i).getCode() == codeV && userVouchers.get(i).getEmail() == emailV){
+                userVouchers.remove(i);
+                return;
 
-	public void setExpirationDate(LocalDate expirationDate) {
-		this.expirationDate = expirationDate;
-	}
-
-	public String getEmail() {
-		return email;
-	}
-
-	public void setEmail(String email) {
-		this.email = email;
-	}
+            }
+        }
+    }
 }
