@@ -14,7 +14,7 @@ public class Ticket {
     private String email;
     private double price; 
 
-    public Ticket(int id, int seatNo, String showroom_ID, String movieName, String theatre, LocalDate datePurchased, LocalDateTime showing_time, String email, double price){
+    public Ticket(int id, int seatNo, String showroom_ID, String movieName, String theatre, LocalDate datePurchased, LocalDateTime showing_time, String email, double price){ //ctor for ticket
         
         showTimeTicket = new Showtime(showroom_ID, theatre, movieName, showing_time);
         this.id = id;
@@ -26,27 +26,27 @@ public class Ticket {
         this.price= price;
     }
 
-    public int getID(){
+    public int getID(){ //getter for id
         return id;
     }
 
-    public int getSeatNo(){
+    public int getSeatNo(){ //getter for seat number
         return seatNo;
     }
 
-    public Showtime getShowtimeObj(){
+    public Showtime getShowtimeObj(){ //getter for showtime
         return showTimeTicket;
     }
 
-    public LocalDate getDatePurchased(){
+    public LocalDate getDatePurchased(){ //getter for date purchased
         return datePurchased;
     }
 
-    public String getEmail(){
+    public String getEmail(){ //getter for email
         return email;
     }
 
-    public double getPrice(){
+    public double getPrice(){ //getter tof ticket price
         return price;
     }
 }
