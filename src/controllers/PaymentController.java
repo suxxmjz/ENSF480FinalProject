@@ -10,6 +10,7 @@ public class PaymentController {
     private PaymentGUI payTab;
     private int card;
     private User currUser;
+   
     
     public PaymentController(DatabaseController db){
         this.dbControl = db;

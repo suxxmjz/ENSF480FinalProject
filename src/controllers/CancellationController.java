@@ -50,10 +50,10 @@ public class CancellationController {
         String userEmail = currUser.getEmail();
         boolean checkReg = db.checkRegisterStatus(userEmail);
         if(checkReg){
-            currUser.addCredit(ticket.getPrice());
+            currUser.addCredit((ticket.getPrice()), userEmail);
         }
         else{
-            currUser.addCredit((ticket.getPrice()) * 0.85);
+            currUser.addCredit(((ticket.getPrice()) * 0.85), userEmail);
         }
         Showtime theShowTime = ticket.getShowtimeObj();
         int theSeat = ticket.getSeatNo();

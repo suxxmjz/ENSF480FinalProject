@@ -8,14 +8,17 @@ class Voucher{
 	int code;
 	double amount;
 	LocalDate expirationDate;
+    String email;
 
-	Voucher(double credit, LocalDate expirationDate){
+
+	Voucher(double credit, LocalDate expirationDate, String email){
 		int max = 1000000;
 		int min = 10000;
 		int range = max - min + 1;
 		this.amount = credit;
 		this.expirationDate = expirationDate;
 		this.code = (int)(Math.random() * range) + min;
+        this.email = email;
 	}
 }
 
@@ -82,11 +85,21 @@ public class User{
 	public int getcardNumber(){
 		return cardNumber;
 	}
-	public void addCredit(double d) {
+	public void addCredit(double d, String e) {
 
 		LocalDate rn  = LocalDate.now();
 		LocalDate expr = rn.plusYears(1);
-		Voucher newV = new Voucher(d,expr);
+		Voucher newV = new Voucher(d,expr, e);
 		userVouchers.add(newV);
 	}
+
+    public void deleteVoucher(int codeV, String emailV){
+        for(int i =0; i < userVouchers.size(); i++){
+            if(userVouchers.get(i).code == codeV && userVouchers.get(i).email == emailV){
+                userVouchers.remove(i);
+                return;
+
+            }
+        }
+    }
 }
