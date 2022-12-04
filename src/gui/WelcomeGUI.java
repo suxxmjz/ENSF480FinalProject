@@ -30,6 +30,13 @@ public class WelcomeGUI{
 	 * Launch the application.
 	 */	
 	public WelcomeGUI(MovieTheatreApp app, DatabaseController dbControl, AccountController accControl, BrowsingController brControl, CancellationController canControl, PaymentController payControl) {
+		WelcomeGUI.app = app;
+		WelcomeGUI.dbControl = dbControl;
+		WelcomeGUI.accControl = accControl;
+		WelcomeGUI.brControl = brControl;
+		WelcomeGUI.canControl = canControl;
+		WelcomeGUI.payControl = payControl;
+		
 		frame = new JFrame();
 		frame.setBounds(100, 100, 683, 157);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);

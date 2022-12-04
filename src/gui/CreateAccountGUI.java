@@ -30,7 +30,7 @@ public class CreateAccountGUI {
 	public static int cardNum;
 	public MovieTheatreApp app;
 	public static DatabaseController dbControl;
-	public AccountController accControl;
+	public static AccountController accControl;
 	public BrowsingController brControl;
 	public CancellationController canControl;
 	public PaymentController payControl; 
@@ -49,7 +49,8 @@ public class CreateAccountGUI {
 	 * Initialize the contents of the frame.
 	 */
 	public CreateAccountGUI(DatabaseController dbControl, AccountController accountController) {
-		this.dbControl = dbControl;
+		CreateAccountGUI.dbControl = dbControl;
+		CreateAccountGUI.accControl = accountController;
 		frame = new JFrame();
 		frame.setBounds(100, 100, 492, 393);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);

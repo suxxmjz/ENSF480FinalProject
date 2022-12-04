@@ -4,22 +4,11 @@ import java.util.*;
 import java.time.*;  
 import java.lang.Math;
 
-class Voucher{
-	int code;
-	double amount;
-	LocalDate expirationDate;
 
-	Voucher(double credit, LocalDate expirationDate){
-		int max = 1000000;
-		int min = 10000;
-		int range = max - min + 1;
-		this.amount = credit;
-		this.expirationDate = expirationDate;
-		this.code = (int)(Math.random() * range) + min;
-	}
-}
 
 public class User{
+	
+	
 	private String firstName;
 	private String lastName;
 	private String userAddress;
@@ -31,6 +20,12 @@ public class User{
 	private ArrayList<Voucher> userVouchers;
 
 	public User(String firstName, String lastName, String userAddress, String userEmail, String password, int cardNumber){
+		this.firstName = firstName;
+		this.lastName = lastName;
+		this.userAddress = userAddress;
+		this.userEmail = userEmail;
+		this.password = password;
+		this.cardNumber = cardNumber;
 	}
 	
 	public User() {
@@ -82,11 +77,11 @@ public class User{
 	public int getcardNumber(){
 		return cardNumber;
 	}
-	public void addCredit(double d) {
+	public void addCredit(int credit, int creditAmount, boolean creditExpired) {
 
 		LocalDate rn  = LocalDate.now();
 		LocalDate expr = rn.plusYears(1);
-		Voucher newV = new Voucher(d,expr);
+		Voucher newV = new Voucher(credit,expr);
 		userVouchers.add(newV);
 	}
 }
