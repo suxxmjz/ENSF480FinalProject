@@ -1,6 +1,5 @@
 package controllers;
-import DatabaseController;
-import PaymentGUI;
+import gui.*;
 import java.util.*;
 import entities.*;
 public class PaymentController {
@@ -22,29 +21,29 @@ public class PaymentController {
 
     public void makePayment(User user, Ticket theT){
         currUser = user;
-        String email = user.getEmail();
-        boolean checkReg = checkRegisterUser(email);
-        // tickets = currUser.getTickets();
-        if(checkReg){
-            payGUI = new PaymentGUI(user,this);
-            payGUI.RegPaymentGUI();
+        payTab = new PaymentGUI(user,this);
+        payTab.initialize();
+        // String email = user.getEmail();
+        // boolean checkReg = checkRegisterUser(email);
+        // // tickets = currUser.getTickets();
+        // if(checkReg){
+        //     payTab = new PaymentGUI(user,this);
+        //     payTab.RegPaymentGUI();
 
-        }
-        else{
-            payGUI = new PaymentGUI(user,this);
-            normalPayment("info");
-        }
+        // }
+        // else{
+        //     payTab = new PaymentGUI(user,this);
+        //     normalPayment("info");
+        // }
         // for (Ticket each : tickets) {
-            databaseController.addTicket(theT);
+            dbControl.addTicket(theT);
             user.newTicket(theT);
-            databaseController.updateSeat(theT.getMovieName(), theT.getShowingTime(), theT.getSeatNo(), false);
+            dbControl.updateSeat(theT.getMovieName(), theT.getShowingTime(), theT.getSeatNo(), false);
         //}
-        currUser.clearTicketList();
+        // currUser.clearTicketList();
     }
 
-    public void normalPayment(String info) throws Exception {
-        payGUI.OrdPaymentGUI();
-    }
+    //IMPLEMENT BELOW FUNCTION TO MAKE SURE USER ENTERS CORRECT TYPE OF INFO
 
     // public void parseInfo(String e, String b, String c) {
     //     String email = e;

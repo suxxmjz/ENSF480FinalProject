@@ -3,7 +3,6 @@ package controllers;
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.util.*;
-import Database.DatabaseController;
 import entities.*;
 import View.CancellationGUI;
 import java.time.LocalDateTime;
