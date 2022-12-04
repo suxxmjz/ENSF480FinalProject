@@ -323,6 +323,10 @@ public class DatabaseController {
    public RegisteredUser getRegisteredUser(String username, String password) {
 	   String query = "SELECT * FROM 480_final_project.users WHERE Email =? AND Password = ?";
 	   RegisteredUser returnObj = null;
+	   String firstName = null;
+	   String lastName = null;
+	   String userAddress = null;
+	   int cardNumber = -1;
 	   try {
 		   stmt = dbConnect.prepareStatement(query);
 		   stmt.setString(1, username);
@@ -330,11 +334,11 @@ public class DatabaseController {
 		   results = stmt.executeQuery();
 		   if(results.next()) {
 			   if(results.getBoolean("is_registered")) {
-				   String firstName = results.getString("Firstname");
-					String lastName = results.getString("Lastname");
-					String userAddress = results.getString("UserAddress");
-					int cardNumber = results.getInt("CardNumber");
-				   returnObj = new RegisteredUser(firstName, lastName, userAddress, username, password, cardNumber);
+				    firstName = results.getString("Firstname");
+					 lastName = results.getString("Lastname");
+					userAddress = results.getString("UserAddress");
+					cardNumber = results.getInt("CardNumber");
+//				   returnObj = new RegisteredUser(firstName, lastName, userAddress, username, password, cardNumber);
 			   }
 		   }
 		   stmt.close();
@@ -342,6 +346,8 @@ public class DatabaseController {
 	   } catch(Exception e) {
 		   System.out.println(e);
 	   }
+	   if(firstName != null)
+		   returnObj = new RegisteredUser(firstName, lastName, userAddress, username, password, cardNumber);
 	   return returnObj;
    }
    
