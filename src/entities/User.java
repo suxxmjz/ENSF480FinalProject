@@ -4,13 +4,16 @@ import java.util.*;
 import java.time.*;  
 import java.lang.Math;
 
+
+//Voucher class to generate voucher
+//created by generating random numbers
 class Voucher{
 	int code;
 	double amount;
 	LocalDate expirationDate;
     String email;
 
-
+         //constructor
 	Voucher(double credit, LocalDate expirationDate, String email){
 		int max = 1000000;
 		int min = 10000;
