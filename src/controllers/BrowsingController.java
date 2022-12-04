@@ -1,17 +1,19 @@
 package controllers;
 
-import Database.DatabaseController;
+import DatabaseController;
 import entities.*;
-import View.BrowsingGUI;
+import gui.*;
 import java.time.LocalDate;
 import java.text.SimpleDateFormat;
 
-import java.awt.Color;
+import java.awt.*;
 import java.io.*; 
 import java.util.*;
+import javax.swing.*;
+
 public class BrowsingController {
 
-    private BrowsingGUI browser;
+    private MovieGUI browser;
 	private DatabaseController dbControl; 
 	private MovieTheatreApp app;
 
@@ -25,7 +27,7 @@ public class BrowsingController {
 		return app;
 	}
 	
-	public String getMovies () {
+	public String getAllMovies () {
 		String movieList = "";
 		Date date = new Date ();
 		ArrayList <Movie> movieNames = dbControl.getAllMovies();
@@ -50,20 +52,20 @@ public class BrowsingController {
 	public void browse(User user) throws Exception {
 		String movieList = "";
 		if (user.getClass() == User.class) {
-			movies = getMovies();
-			browser = new BrowsingGUI ("Browse Movies", movies, this, user);
+			movies = getMovie();
+			browser = new MovieGUI("Search Movies", movies, this, user);
 		} 
 		else {
-			movies = getMovies();
+			movies = getMovie();
 			String notReleasedYet = getUnreleased();
-			browser = new BrowsingGUI ("Browse Movies", movies, notReleasedYet, this, user);
+			browser = new MovieGUI("Search Movies", movies, notReleasedYet, this, user);
 		}
 	}
 	
-	public boolean regularUserBrowsing(String name){
+	public boolean regularUserBrowsing(String movName){
 		boolean isRegular = true;
 		Date movDate = new Date();
-		Movie movie = dbControl.findMovie(name);
+		Movie movie = dbControl.getMovieName(movName);
 		if (movie.getAnnouncement().getTime() > movDate.getTime()){
 			isRegular = false;
 		}
@@ -111,7 +113,6 @@ public class BrowsingController {
 	}
 	
     public void selectShowTime() throws Exception{
-    	
     	boolean check = true;
     	String movieName = browser.getMovie();
 		ArrayList<Showtime> allShowTime = dbControl.getAllShowtimes(movieName);
@@ -127,20 +128,28 @@ public class BrowsingController {
                      ifAvailable ++;
 			}
 			if (ifAvailable / seatList.size() < .9) {
-				browsingGUI.displayInvalidSeat();
-				browsingGUI.displayShowtimes(getAllShowtimes(movieName), movieName);
+				seatGUI.displayInvalidSeat();
+				seatGUI.displayShowtimes(getAllShowtimes(movieName), movieName);
 				check = false;
 			}
 		}
 		if (check == true) {
 			getSeats (movieName, showtime);
-			browsingGUI.displaySeats(movieName);
+			seatGUI.displaySeats(movieName);
 		}
     }
     
+    public void changeSeatColor (int i, Color c) {
+		JPanel f = new JPanel();
+		f.setPreferredSize(new Dimension(30, 30));
+		f.setBackground(c);
+		f.add(new JLabel (String.valueOf(i), JLabel.CENTER));
+		seats.add(f);
+	}
+    
     public String getAllSeats (String movieName, Showtime showtime) {
     	String movieList = "";
-    	ArrayList<Seat> seatList= databaseController.getAllSeats(movieName, showtime);
+    	ArrayList<Seat> seatList= dbControl.getAllSeats(movieName, showtime);
     	
     	for (Seat seat : seatList) {
     		if (seat.getseatNumber()%10 == 0)
@@ -152,33 +161,30 @@ public class BrowsingController {
     }
  
     public void getSeats (String movieName, Showtime showtime) {
-    	
     	ArrayList<Seat> allSeats= dbControl.getAllSeats(movieName, showtime);
-    	
-    	for (Seat s : allSeats) {
-    		if (s.available() == false)
-    			browser.addSeatsToFrame (s.getseatNumber(), new Color (255, 0, 0));
+    	for (Seat seat : allSeats) {
+    		if (seat.available() == false)
+    			browser.changeSeatColor(seat.getseatNumber(), new Color (255, 0, 0));
     		else 
-    			browser.addSeatsToFrame (s.getseatNumber(), new Color (0, 255, 0));
+    			browser.changeSeatColor(seat.getseatNumber(), new Color (0, 255, 0));
     	}
     }
 	
 	public void selectSeat(User user) throws Exception {
-		
 		String movieName = browser.getMovie();
 		ArrayList<Showtime> allShowTime = dbControl.getAllShowtimes(movieName);
 		Showtime showtime = allShowTime.get((Integer.parseInt(browser.getShowtime()) - 1));
 		ArrayList<Seat> allSeats= dbControl.getAllSeats(movieName, showtime);
-		int index = Integer.parseInt(browser.getSeat()); 
-		Seat seat = allSeats.get(index-1);
+		int seatNum = Integer.parseInt(browser.getSeat()); 
+		Seat seat = allSeats.get(seatNum - 1);
 		browser.dispose();
 		if (seat != null) {
-			Ticket ticket = dbControl.getTicket(movieName, showtime, seat);
-            Payment price = dbControl.getPrice(price);
+			Ticket ticket = dbControl.getID(movieName, showtime, seat);
+            Payment ticketPrice = dbControl.getID(ticketPrice);
 			user.newTicket(ticket);
-			browser.displayConfirmation(price.getPrice());
-			app.startPayment();
+            //if we're keeping price constant?
+			//browser.displayConfirmation(ticketPrice.getPrice());
+			app.payNow();
 		}		
 	}
 }
-
