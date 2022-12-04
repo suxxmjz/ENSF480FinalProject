@@ -1,29 +1,37 @@
 package entities;
 
 import java.time.LocalDateTime;
-import java.util.*;
 
-public class Seat {
-    private int seatNumber;
+public class ticketSeat {
+	private int id;
+	private int seatNumber;
     private String rowNumber;
     private boolean available;
     private String movieName;
     private LocalDateTime showTime;
     private String showRoom;
-
-    public Seat(int seatNumber, boolean available, String movieName, LocalDateTime showTime,
+    
+    public ticketSeat (int id, int seatNumber, String rowNumber, boolean available, String movieName, LocalDateTime showTime,
             String showRoom) {
-        this.seatNumber = seatNumber;
-        this.available = available;
-        this.movieName = movieName;
-        this.showTime = showTime;
-        this.showRoom = showRoom;
+    	 this.id = id;
+    	 this.seatNumber = seatNumber;
+         this.rowNumber = rowNumber;
+         this.movieName = movieName;
+         this.showTime = showTime;
+         this.showRoom = showRoom;
     }
-
+    
+    public int getID(){
+        return id;
+    }
+    
     public int getseatNumber() {
         return seatNumber;
     }
 
+    public String getRowNumber() {
+        return rowNumber;
+    }
 
     public String getMovieName() {
         return movieName;
@@ -40,5 +48,4 @@ public class Seat {
     public boolean available() {
         return this.available;
     }
-
 }

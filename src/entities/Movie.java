@@ -1,7 +1,9 @@
 
 package entities;
 
+import java.time.Duration;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 public class Movie {
     private String movieName;
@@ -32,5 +34,13 @@ public class Movie {
     public LocalDate getAnnouncement() {
         return announcement;
     }
+    
+    public boolean Check1Week() {
+		   Duration duration = Duration.between(LocalDate.now(), announcement);
+		   if(duration.toDays() <= 7)
+			   return true;
+		   else
+			   return false;
+	   }
 
 }
