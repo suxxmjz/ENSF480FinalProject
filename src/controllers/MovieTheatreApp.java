@@ -44,9 +44,9 @@ public class MovieTheatreApp {
             isLogged = in;
         }
         
-        public void startPayment() throws Exception {
-            pay.makePayment(user,theTicket); //need to retrieve ticket from somewhere
-            pay.currApp(this);
+        public void payNow() throws Exception {
+            pay.pay(isLogged, user);
+            pay.setMta(this);
         }
         
         public void login() throws Exception {
@@ -63,7 +63,7 @@ public class MovieTheatreApp {
         }
         
         public void browse() throws Exception {
-            browser.browse(user);
+            browse.browse(user);
         }
         
         public void cancel() throws Exception {
@@ -72,7 +72,7 @@ public class MovieTheatreApp {
         }
         
         public void register() throws Exception {
-            acc.createAccount();
+            account.createAccount();
         }
         
         public void logout() {
