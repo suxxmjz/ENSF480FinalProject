@@ -100,19 +100,16 @@ CREATE TABLE seats (
   FOREIGN KEY (ShowRoom, Movie, ShowTime) REFERENCES Showtime(showroom_ID, movie_name, showing_time)
 );
 
-DROP TABLE IF EXISTS `ticketSeats` ;
+DROP TABLE IF EXISTS `voucher` ;
+CREATE TABLE voucher (
+	code_ INT NOT NULL,
+    amount double,
+    expiration DATE,
+    email VARCHAR(50),
+    primary key (code_)
+);
 
-CREATE TABLE ticketSeats (
-  id int NOT NULL AUTO_INCREMENT,
-  SeatNumber int NOT NULL,
-  Available BIT(1) NOT NULL,
-  Movie VARCHAR(50) NOT NULL,
-  ShowTime DATETIME NOT NULL,
-  ShowRoom VARCHAR(4) NOT NULL,
-  PRIMARY KEY (id, SeatNumber, Movie, ShowTime, ShowRoom),
-  FOREIGN KEY (SeatNumber, Movie, ShowTime, ShowRoom) REFERENCES seats(SeatNumber, Movie, ShowTime, ShowRoom),
-  FOREIGN KEY(id) REFERENCES ticket(id)
-)
+
 
 
 
