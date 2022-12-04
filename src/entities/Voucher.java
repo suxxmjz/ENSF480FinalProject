@@ -8,7 +8,7 @@ public class Voucher{
 	private LocalDate expirationDate;
 	private String email;
 
-	Voucher(int amount, LocalDate expirationDate, String email){
+	Voucher(double amount, LocalDate expirationDate, String email){
 		int max = 1000000;
 		int min = 10000;
 		int range = max - min + 1;
@@ -30,7 +30,7 @@ public class Voucher{
 		return amount;
 	}
 
-	public void setAmount(int amount) {
+	public void setAmount(double amount) {
 		this.amount = amount;
 	}
 
