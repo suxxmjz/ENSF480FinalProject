@@ -9,12 +9,9 @@ import java.awt.event.ActionListener;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.Random;
-
-import controllers.AccountController;
-import controllers.BrowsingController;
 import controllers.CancellationController;
 import controllers.DatabaseController;
-import controllers.MovieTheatreApp;
+import controllers.MovieController;
 import controllers.PaymentController;
 import entities.Showtime;
 import entities.Ticket;
@@ -36,9 +33,7 @@ public class PaymentGUI {
 	public static double price;
 	public static String showID;
 	public static LocalDateTime movieShowTime;
-	public MovieTheatreApp app;
-	public static AccountController accControl;
-	public BrowsingController brControl;
+	public MovieController app;
 	public CancellationController canControl;
 	public PaymentController payControl; 
 		
@@ -111,7 +106,7 @@ public class PaymentGUI {
 					dbControl.addTicket(temp);
 					frame.dispose();
 					JOptionPane.showMessageDialog(null, "Your seat has been booked and you have been charged from the saved credit card in your account. Please check your email for the ticket. Thank you!", "Payment Confirmed!", JOptionPane.INFORMATION_MESSAGE);
-					WelcomeGUI afterRegistration= new WelcomeGUI(app, dbControl, accControl, brControl, canControl, payControl);
+					WelcomeGUI afterRegistration= new WelcomeGUI(app, dbControl, canControl, payControl);
 					afterRegistration.frame.setVisible(true);
 			} catch (Exception e1) {
 				e1.printStackTrace();

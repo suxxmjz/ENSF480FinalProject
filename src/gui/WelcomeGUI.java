@@ -4,11 +4,9 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 
-import controllers.AccountController;
-import controllers.BrowsingController;
 import controllers.CancellationController;
 import controllers.DatabaseController;
-import controllers.MovieTheatreApp;
+import controllers.MovieController;
 import controllers.PaymentController;
 
 import java.awt.Font;
@@ -18,21 +16,17 @@ import java.awt.event.ActionEvent;
 public class WelcomeGUI{
 
 	public JFrame frame;
-	public static MovieTheatreApp app;
+	public static MovieController app;
 	public static DatabaseController dbControl;
-	public static AccountController accControl;
-	public static BrowsingController brControl;
 	public static CancellationController canControl;
 	public static PaymentController payControl; 
 
 	/**
 	 * Launch the application.
 	 */	
-	public WelcomeGUI(MovieTheatreApp app, DatabaseController dbControl, AccountController accControl, BrowsingController brControl, CancellationController canControl, PaymentController payControl) {
+	public WelcomeGUI(MovieController app, DatabaseController dbControl, CancellationController canControl, PaymentController payControl) {
 		WelcomeGUI.app = app;
 		WelcomeGUI.dbControl = dbControl;
-		WelcomeGUI.accControl = accControl;
-		WelcomeGUI.brControl = brControl;
 		WelcomeGUI.canControl = canControl;
 		WelcomeGUI.payControl = payControl;
 		
@@ -73,7 +67,7 @@ public class WelcomeGUI{
 		public void actionPerformed(ActionEvent e) {
 			try {
 				frame.dispose();
-				CreateAccountGUI accountGUI = new CreateAccountGUI(dbControl, accControl);
+				CreateAccountGUI accountGUI = new CreateAccountGUI(dbControl);
 				accountGUI.frame.setVisible(true);
 			} catch (Exception e1) {
 				e1.printStackTrace();
@@ -86,7 +80,7 @@ public class WelcomeGUI{
 		public void actionPerformed(ActionEvent e) {
 			try {
 				frame.dispose();
-				RUserLoginGUI loginGUI = new RUserLoginGUI(dbControl, accControl);
+				RUserLoginGUI loginGUI = new RUserLoginGUI(dbControl);
 				loginGUI.frame.setVisible(true);
 			} catch (Exception e1) {
 				e1.printStackTrace();

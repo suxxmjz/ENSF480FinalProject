@@ -8,11 +8,9 @@ import java.awt.event.ActionListener;
 
 import javax.swing.JTextField;
 
-import controllers.AccountController;
-import controllers.BrowsingController;
 import controllers.CancellationController;
 import controllers.DatabaseController;
-import controllers.MovieTheatreApp;
+import controllers.MovieController;
 import controllers.PaymentController;
 import entities.RegisteredUser;
 import javax.swing.JButton;
@@ -28,16 +26,13 @@ public class CreateAccountGUI {
 	public static JTextField Password;
 	public static String fName, lName, address, email, password;
 	public static int cardNum;
-	public MovieTheatreApp app;
+	public MovieController app;
 	public static DatabaseController dbControl;
-	public static AccountController accControl;
-	public BrowsingController brControl;
 	public CancellationController canControl;
 	public PaymentController payControl; 
 
-	public CreateAccountGUI(DatabaseController dbControl, AccountController accountController) {
+	public CreateAccountGUI(DatabaseController dbControl) {
 		CreateAccountGUI.dbControl = dbControl;
-		CreateAccountGUI.accControl = accountController;
 		frame = new JFrame();
 		frame.setBounds(100, 100, 492, 393);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -153,7 +148,7 @@ public class CreateAccountGUI {
 				RegisteredUser temp = new RegisteredUser(fName, lName, address, email, password, cardNum);
 				dbControl.addRegisteredUser(temp);
 				frame.dispose();
-				WelcomeGUI afterRegistration= new WelcomeGUI(app, dbControl, accControl, brControl, canControl, payControl);
+				WelcomeGUI afterRegistration= new WelcomeGUI(app, dbControl, canControl, payControl);
 				afterRegistration.frame.setVisible(true);
 			} catch (Exception e1) {
 				e1.printStackTrace();

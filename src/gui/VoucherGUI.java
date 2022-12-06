@@ -12,11 +12,9 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 
-import controllers.AccountController;
-import controllers.BrowsingController;
 import controllers.CancellationController;
 import controllers.DatabaseController;
-import controllers.MovieTheatreApp;
+import controllers.MovieController;
 import controllers.PaymentController;
 import entities.Showtime;
 import entities.Ticket;
@@ -29,9 +27,7 @@ public class VoucherGUI {
     public JTextField textField;
     public JTextField textField_1;
     public static String email, voucher;
-    public static MovieTheatreApp app;
-	public static AccountController accControl;
-	public static BrowsingController brControl;
+    public static MovieController app;
 	public static CancellationController canControl;
 	public static PaymentController payControl;
 	double checkStatus;
@@ -136,7 +132,7 @@ public class VoucherGUI {
 								dbControl.addTicket(tempTicket);			
 								JOptionPane.showMessageDialog(null, "Booking Complete! Please check your email for the ticket.", "Voucher Info", JOptionPane.PLAIN_MESSAGE);
 								frame.dispose();
-								WelcomeGUI afterRegistration= new WelcomeGUI(app, dbControl, accControl, brControl, canControl, payControl);
+								WelcomeGUI afterRegistration= new WelcomeGUI(app, dbControl, canControl, payControl);
 								afterRegistration.frame.setVisible(true);
 							}
 							
@@ -151,7 +147,7 @@ public class VoucherGUI {
 				        else{
 				        	frame.dispose();
 				        	JOptionPane.showMessageDialog(null, "Voucher is Invalid!", "Voucher Info", JOptionPane.ERROR_MESSAGE);
-							WelcomeGUI afterRegistration= new WelcomeGUI(app, dbControl, accControl, brControl, canControl, payControl);
+							WelcomeGUI afterRegistration= new WelcomeGUI(app, dbControl, canControl, payControl);
 							afterRegistration.frame.setVisible(true);
 				        }						
 					}	

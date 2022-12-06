@@ -9,7 +9,6 @@ import java.awt.event.ActionListener;
 
 import javax.swing.JTextField;
 
-import controllers.AccountController;
 import controllers.DatabaseController;
 import entities.RegisteredUser;
 import java.awt.Color;
@@ -24,13 +23,12 @@ public class RUserLoginGUI {
 	public JPasswordField passwordField;
 	public JButton btnLogin;
 	public static DatabaseController dbControl;
-	public static AccountController accControl;
+
 	public static String email, password;
 	char[] passwordEncrypt;
 
-	public  RUserLoginGUI(DatabaseController dbControl, AccountController accountController) {
+	public  RUserLoginGUI(DatabaseController dbControl) {
 		RUserLoginGUI.dbControl = dbControl;
-		RUserLoginGUI.accControl = accountController;
 		frame = new JFrame();
 		frame.setBounds(100, 100, 452, 270);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -84,7 +82,7 @@ public class RUserLoginGUI {
 				if(Objects.isNull(rU)) {
 					JOptionPane.showMessageDialog(null, "Invalid Login Details", "Login Error", JOptionPane.ERROR_MESSAGE);
 					frame.dispose();
-					RUserLoginGUI loginGUI = new RUserLoginGUI(dbControl, accControl);
+					RUserLoginGUI loginGUI = new RUserLoginGUI(dbControl);
 					loginGUI.frame.setVisible(true);
 				}
 				else {

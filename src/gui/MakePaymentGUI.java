@@ -15,11 +15,9 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 
-import controllers.AccountController;
-import controllers.BrowsingController;
 import controllers.CancellationController;
 import controllers.DatabaseController;
-import controllers.MovieTheatreApp;
+import controllers.MovieController;
 import controllers.PaymentController;
 import entities.Showtime;
 import entities.Ticket;
@@ -36,9 +34,7 @@ public class MakePaymentGUI {
 	public static int cardNum, seatNumber, id;
 	public static DatabaseController dbControl;
 	public static Showtime time;
-	public MovieTheatreApp app;
-	public static AccountController accControl;
-	public BrowsingController brControl;
+	public MovieController app;
 	public CancellationController canControl;
 	public PaymentController payControl; 
 
@@ -155,7 +151,7 @@ public class MakePaymentGUI {
 				dbControl.addTicket(temp);
 				frame.dispose();
 				JOptionPane.showMessageDialog(null, "Your seat has been booked. Please check your email for the ticket. Thank you!", "Payment Confirmed!", JOptionPane.INFORMATION_MESSAGE);
-				WelcomeGUI afterRegistration= new WelcomeGUI(app, dbControl, accControl, brControl, canControl, payControl);
+				WelcomeGUI afterRegistration= new WelcomeGUI(app, dbControl, canControl, payControl);
 				afterRegistration.frame.setVisible(true);
 			} catch (Exception e1) {
 				e1.printStackTrace();

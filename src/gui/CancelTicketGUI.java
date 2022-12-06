@@ -9,11 +9,9 @@ import java.awt.event.ActionListener;
 import java.time.LocalDate;
 import javax.swing.JTextField;
 
-import controllers.AccountController;
-import controllers.BrowsingController;
 import controllers.CancellationController;
 import controllers.DatabaseController;
-import controllers.MovieTheatreApp;
+import controllers.MovieController;
 import controllers.PaymentController;
 import entities.Ticket;
 import entities.Voucher;
@@ -26,10 +24,8 @@ public class CancelTicketGUI {
     public JTextField textField;
     public JTextField textField_1;
     public static String email, ticket;
-    public static MovieTheatreApp app;
+    public static MovieController app;
 	public static DatabaseController dbControl;
-	public static AccountController accControl;
-	public static BrowsingController brControl;
 	public static CancellationController canControl;
 	public static PaymentController payControl;
 	boolean checkStatus;
@@ -124,7 +120,7 @@ public class CancelTicketGUI {
 							dbControl.addVoucher(makeVoucher);
 							frame.dispose();
 							JOptionPane.showMessageDialog(null, voucherNum, "Voucher Number", JOptionPane.PLAIN_MESSAGE);
-							WelcomeGUI afterRegistration= new WelcomeGUI(app, dbControl, accControl, brControl, canControl, payControl);
+							WelcomeGUI afterRegistration= new WelcomeGUI(app, dbControl, canControl, payControl);
 							afterRegistration.frame.setVisible(true);
 				        }
 				        else{
@@ -142,7 +138,7 @@ public class CancelTicketGUI {
 							dbControl.addVoucher(makeVoucher);
 							frame.dispose();
 							JOptionPane.showMessageDialog(null, voucherNum, "Voucher Number", JOptionPane.PLAIN_MESSAGE);
-							WelcomeGUI afterRegistration= new WelcomeGUI(app, dbControl, accControl, brControl, canControl, payControl);
+							WelcomeGUI afterRegistration= new WelcomeGUI(app, dbControl, canControl, payControl);
 							afterRegistration.frame.setVisible(true);
 				        }						
 					}	

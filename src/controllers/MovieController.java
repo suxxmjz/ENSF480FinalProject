@@ -5,19 +5,17 @@ import gui.WelcomeGUI;
 
 
 
-public class MovieTheatreApp {
+public class MovieController {
                
         public static void main(String[] args) {
             DatabaseController dbControl = new DatabaseController();
-            MovieTheatreApp app = new MovieTheatreApp();
-            BrowsingController brControl = new BrowsingController(dbControl, app);
+            MovieController app = new MovieController();
             CancellationController canControl = new CancellationController(dbControl);
             PaymentController payControl = new PaymentController(dbControl);
-            AccountController accControl = new AccountController(dbControl, app);
             
                 try {
                     UIManager.setLookAndFeel(UIManager.getCrossPlatformLookAndFeelClassName());
-                    WelcomeGUI window = new WelcomeGUI(app, dbControl, accControl, brControl, canControl, payControl);
+                    WelcomeGUI window = new WelcomeGUI(app, dbControl, canControl, payControl);
                     window.frame.setVisible(true);
                 } catch (Exception e){
                     System.out.println(e);
