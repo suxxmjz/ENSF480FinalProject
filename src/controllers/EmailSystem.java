@@ -11,12 +11,14 @@ public class EmailSystem {
 	public static String email;
 	Session newSession = null;
 	
+	//constructor
 	public EmailSystem(DatabaseController dbControl, int seatNumber, String email) {
 		EmailSystem.dbControl = dbControl;
 		EmailSystem.seatNumber = seatNumber;
 		EmailSystem.email = email;
 	}
 	
+	//function to send an email to the user once their ticket is created
     public static void sendMail(String email, double paidAmount, String seat){
         String to = RUserLoginGUI.email.trim();
         String from = "jmovies.noreply@gmail.com";
