@@ -18,6 +18,8 @@ public class DatabaseController {
    private PreparedStatement stmt;
    private ResultSet results;
    
+ 
+   //constructor	
    public DatabaseController(String url, String user, String pw) {
 	   this.dbURL = url;
 
@@ -32,6 +34,7 @@ public class DatabaseController {
        }
    }
    
+   //to connect to local database on tester's localhost
    public DatabaseController() {
 	   this.dbURL = "jdbc:mysql://localhost/480_final_project";
 
@@ -45,7 +48,8 @@ public class DatabaseController {
            e.printStackTrace();
        }
    }
-   
+	
+   //function to retrieve movie list as an array list
    public ArrayList<Movie> getAllMovies(){
 	   ArrayList<Movie> List = new ArrayList<Movie>();
 	   String title = "";
@@ -73,6 +77,7 @@ public class DatabaseController {
 	   return List;
    }
    
+   //function to retrieve every movie individually by movie title
    public Movie getMovie(String M){
 	   String title = "";
 	   String genre = "";
@@ -101,6 +106,7 @@ public class DatabaseController {
 	   return returnObj;
    }
    
+   //function to retrieve show times for all movie	
    public ArrayList<Showtime> getAllShowtimes(String Movie){
 	   ArrayList<Showtime> List = new ArrayList<Showtime>();
 	   String query = "SELECT * FROM 480_final_project.showtime WHERE movie_name=?";
@@ -126,6 +132,7 @@ public class DatabaseController {
 	   return List;
    }
    
+   //function to retrieve all show rooms in the theater
    public ArrayList<Showroom> getAllShowrooms(){
 	   ArrayList<Showroom> List = new ArrayList<Showroom>();
 	   String query = "SELECT * FROM 480_final_project.showroom";
@@ -148,6 +155,7 @@ public class DatabaseController {
 	   return List;
    }
    
+   //function to retrieve all seats in a show room
    public ArrayList<Seat> getAllSeats(Showtime time){
 	   ArrayList<Seat> List = new ArrayList<Seat>();
 	   String query = "SELECT * FROM 480_final_project.seats WHERE Showtime = ? AND Movie = ? AND ShowRoom = ?";
@@ -173,6 +181,7 @@ public class DatabaseController {
 	   return List;
    }
    
+   //function to retrieve available seats in a show room
    public ArrayList<Seat> getAvailableSeats(Showtime time){
 	   ArrayList<Seat> List = new ArrayList<Seat>();
 	   String query = "SELECT * FROM 480_final_project.seats WHERE Showtime = ? AND Movie = ? AND ShowRoom = ?";
@@ -199,6 +208,7 @@ public class DatabaseController {
 	   return List;
    }
    
+   //function to retireve show times
    public  Showtime getShowTime(int id) {
 	      String query = "SELECT * FROM 480_final_project.showtime WHERE id=?";
 	      Showtime returnObj = null;
@@ -223,6 +233,7 @@ public class DatabaseController {
 	     return returnObj; 
 	  }
    
+  //function to show the booked seats in a show room
    public ArrayList<Seat> getBookedSeats(Showtime time){
 	   ArrayList<Seat> List = new ArrayList<Seat>();
 	   String query = "SELECT * FROM 480_final_project.seats WHERE Showtime = ? AND Movie = ? AND ShowRoom = ?";
@@ -248,7 +259,8 @@ public class DatabaseController {
 	   }
 	   return List;
    }
-   
+	
+   //function to show to the user if the seat has been booked or not
    public void changeToBooked(Showtime time, int ID) {
 	   String query = "UPDATE 480_final_project.seats SET Available=?  WHERE Showtime = ? AND Movie = ? AND ShowRoom = ? AND SeatNumber=?";
 	   try {
@@ -266,6 +278,7 @@ public class DatabaseController {
 	   }
    }
    
+   //function to change a booked seat into available if the user cancels the reservation
    public void changeToAvailable(Showtime time, int ID) {
 	   String query = "UPDATE 480_final_project.seats SET Available=?  WHERE Showtime = ? AND Movie = ? AND ShowRoom = ? AND SeatNumber=?";
 	   try {
@@ -284,6 +297,7 @@ public class DatabaseController {
 	   }
    }
    
+   //function to add user to the database
    public void addUser(User user) {
 	   String query = "INSERT INTO `480_final_project`.`users` VALUES(?,?,?,?,?,?, 0)";
 	   try {
@@ -302,6 +316,7 @@ public class DatabaseController {
 	   }
    }
    
+   //function to add registered user to the database
    public void addRegisteredUser(RegisteredUser user) {
 	   String query = "INSERT INTO `480_final_project`.`users` VALUES(?,?,?,?,?,?, 1)";
 	   try {
@@ -320,6 +335,7 @@ public class DatabaseController {
 	   }
    }
    
+	//get user function
    public User getUser(String username, String password) {
 	   String query = "SELECT * FROM 480_final_project.users WHERE Email =? AND Password = ?";
 	   User returnObj = null;
@@ -343,6 +359,7 @@ public class DatabaseController {
 	   return returnObj;
    }
    
+	//get registered user function
    public RegisteredUser getRegisteredUser(String username, String password) {
 	   String query = "SELECT * FROM 480_final_project.users WHERE Email =? AND Password = ?";
 	   RegisteredUser returnObj = null;
@@ -374,6 +391,7 @@ public class DatabaseController {
 	   return returnObj;
    }
    
+   //check if the user is registered already or not
    public boolean checkRegisterStatus(String email) {
 	   String query = "SELECT * FROM 480_final_project.users WHERE Email =?";
 	   boolean result = false;
@@ -392,6 +410,7 @@ public class DatabaseController {
 	   return result;
    }
    
+	//function to retireve ticket
    public Ticket getTicket(int id, String email) {
 	   String query = "SELECT * FROM 480_final_project.ticket WHERE id =? AND email = ?";
 	   Ticket returnObj = null;
@@ -419,6 +438,7 @@ public class DatabaseController {
 	   return returnObj;
    }
    
+	//function to retrieve voucher when user cancels ticket
    public Voucher getVoucher(int id, String email) {
 	   String query = "SELECT * FROM 480_final_project.voucher WHERE code_ =? AND email = ?";
 	   Voucher voucherObj = null;
@@ -440,7 +460,8 @@ public class DatabaseController {
 	   }
 	   return voucherObj;
    }
-   
+	
+   //function to add ticket to a user
    public void addTicket(Ticket t) {
 	   String query = "INSERT INTO `480_final_project`.`ticket` VALUES(?,?,?,?,?,?,?,?)";
 	   try {
@@ -460,6 +481,7 @@ public class DatabaseController {
 	   }
    }
    
+	//function to apply voucher to a user who canceled a ticket
    public void addVoucher(Voucher V) {
 	   String query = "INSERT INTO `480_final_project`.`voucher` VALUES(?,?,?,?)";
 	   try {
@@ -475,6 +497,7 @@ public class DatabaseController {
 	   }
    }
    
+   //function to check if the voucher is still valid
    public double validateVoucher(Voucher V) {
 	   String query = "SELECT * FROM 480_final_project.voucher WHERE code_ = ? AND email =?";
 	   double a = -1;
@@ -499,6 +522,7 @@ public class DatabaseController {
 	   return a;
    }
    
+   //function to delete a ticket after a user cancels the reservation
    public void deleteTicket(Ticket T) {
 	   String query = "DELETE FROM 480_final_project.ticket WHERE id =? AND email = ?";
 	   try {
@@ -512,6 +536,7 @@ public class DatabaseController {
 	   }
    }
    
+   //function to delete voucher from database
    public void deleteVoucher(Voucher V) {
 	   String query = "DELETE FROM `480_final_project`.`voucher` WHERE code_ =? AND email = ?";
 	   try {
