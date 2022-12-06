@@ -1,12 +1,11 @@
 package controllers;
 
-import java.io.BufferedReader;
-import java.io.InputStreamReader;
 import java.util.*;
 import gui.*;
 import entities.*;
 import java.time.LocalDateTime;
 import java.time.Duration;
+import java.time.LocalDate;
 
 public class CancellationController {
     private CancelTicketGUI refundGUI;
@@ -16,50 +15,58 @@ public class CancellationController {
     private int id;
     private User currUser;
     private Ticket ticket;
+    private Voucher newV;
 
 
     public CancellationController(DatabaseController db) {
         this.db = db;
     }
 
-    public void setMta(MovieTheatreApp incoming) {
+    public void setApp(MovieTheatreApp incoming) {
         app = incoming;
     }
 
-    public void cancel(User user) throws Exception {
-        currUser = user;
-        refundGUI = new CancelTicketGUI();
-        refundGUI.getTicketNo();
-    }
 
-    public void ticketParse(int id) {
+    public void validateTicket(int id, String email) {
        
     
-        ticket = db.getTicket(id);
+        ticket = db.getTicket(id, email);
 
         if (ticket == null) {
-            refundGUI.CancellationFailedGUI("Ticket does not exist.");
+            System.out.print("Ticket does not exist.");
             return;
         }
 
         if (!check72hours(ticket)) {
-            refundGUI.CancellationFailedGUI("Refund failed. Please refund 72 hours prior to showtime.");
+            System.out.print("Refund failed. Please refund 72 hours prior to showtime.");
             return;
         }
 
-        String userEmail = currUser.getEmail();
-        boolean checkReg = db.checkRegisterStatus(userEmail);
+
+        boolean checkReg = db.checkRegisterStatus(email);
         if(checkReg){
-            currUser.addCredit(ticket.getPrice());
+          
+			LocalDate expDate = LocalDate.now();
+			int max = 1000000;
+			int min = 10000;
+			int range = max - min + 1;
+			int theCode =(int)(Math.random() * range) + min;
+            newV = new Voucher(theCode, 20, expDate, email);
         }
         else{
-            currUser.addCredit((ticket.getPrice()) * 0.85);
+            LocalDate expDate = LocalDate.now();
+            int max = 1000000;
+            int min = 10000;
+            int range = max - min + 1;
+            int theCode = (int) (Math.random() * range) + min;
+            newV = new Voucher(theCode, 20, expDate, email);
         }
+
         Showtime theShowTime = ticket.getShowtimeObj();
         int theSeat = ticket.getSeatNo();
 
         db.changeToAvailable(theShowTime, theSeat);
-        // }
+        db.addVoucher(newV);
   
     }
 
