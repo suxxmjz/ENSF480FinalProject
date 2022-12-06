@@ -8,8 +8,8 @@ import entities.*;
 public class PaymentController {
     public MovieTheatreApp app;
     private DatabaseController dbControl;
-    private PaymentGUI payTab;
-    private int card;
+    private PaymentGUI payTabR;
+    private MakePaymentGUI payTabO;
     private User currUser;
     
     public PaymentController(DatabaseController db){
@@ -21,13 +21,21 @@ public class PaymentController {
         this.app = app;
     }
 
-    public void makePayment(User user, Ticket theT){
+    public void makePayment(User user, Ticket theT, Showtime theTime){
         currUser = user;
-        payTab = new PaymentGUI();
-            currUser.newTicket(theT);
-            Showtime theShowTime = theT.getShowtimeObj();
-            int theSeat = theT.getSeatNo();
-            dbControl.changeToBooked(theShowTime, theSeat);
+        String eml = currUser.getEmail();
+        Showtime theShowTime = theT.getShowtimeObj();
+        int theSeat = theT.getSeatNo();
+        boolean reg = dbControl.checkRegisterStatus(eml);
+        if(reg){
+            payTabR = new PaymentGUI(dbControl, theTime, theSeat, theT.getID(), eml);
+        }
+        else{
+            payTabO = new MakePaymentGUI(dbControl, theTime, theSeat, theT.getID(), eml);
+        }
+        currUser.newTicket(theT);
+        dbControl.changeToBooked(theShowTime, theSeat);
+        dbControl.addTicket(theT);
        
     }
 
