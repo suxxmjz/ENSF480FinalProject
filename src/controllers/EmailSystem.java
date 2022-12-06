@@ -1,9 +1,6 @@
 package controllers;
 
 import java.util.*;
-import javax.mail.*;
-
-import javax.mail.internet.*;
 
 import gui.RUserLoginGUI;
 
