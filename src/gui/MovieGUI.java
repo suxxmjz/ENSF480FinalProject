@@ -268,7 +268,7 @@ public class MovieGUI {
 							movieName = "The Wolf of Wall Street";
 							Showtime sTime = dbControl.getShowTime(Integer.parseInt(slotInput));
 							int checkSeat = dbControl.getAvailableSeats(sTime).size();
-							double mathSeat = checkSeat / 12;
+							double mathSeat = checkSeat / 30;
 							if (mathSeat > 0.9) {
 								SeatGUI seatGUI = new SeatGUI(dbControl, Integer.parseInt(slotInput), movieName);
 				                seatGUI.frame.setVisible(true);

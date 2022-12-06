@@ -17,6 +17,7 @@ import javax.swing.JTextField;
 
 import controllers.CancellationController;
 import controllers.DatabaseController;
+import controllers.EmailSystem;
 import controllers.MovieController;
 import controllers.PaymentController;
 import entities.Showtime;
@@ -151,6 +152,9 @@ public class MakePaymentGUI {
 				dbControl.addTicket(temp);
 				frame.dispose();
 				JOptionPane.showMessageDialog(null, "Your seat has been booked. Please check your email for the ticket. Thank you!", "Payment Confirmed!", JOptionPane.INFORMATION_MESSAGE);
+				int ticketNumber = temp.getID();
+				EmailSystem sendEmail = new EmailSystem(dbControl, seatNumber, email);
+				sendEmail.sendMail(email, 20, seatNumber, movieShowTime, showID, theatre, ticketNumber);
 				WelcomeGUI afterRegistration= new WelcomeGUI(app, dbControl, canControl, payControl);
 				afterRegistration.frame.setVisible(true);
 			} catch (Exception e1) {

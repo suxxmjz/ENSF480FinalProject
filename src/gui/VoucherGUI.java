@@ -14,6 +14,7 @@ import javax.swing.JTextField;
 
 import controllers.CancellationController;
 import controllers.DatabaseController;
+import controllers.EmailSystem;
 import controllers.MovieController;
 import controllers.PaymentController;
 import entities.Showtime;
@@ -123,7 +124,6 @@ public class VoucherGUI {
 					}
 					else {
 						checkStatus = dbControl.validateVoucher(temp);
-						System.out.println(checkStatus);
 						if(checkStatus != -1){
 							if (temp.getAmount() == 20) {
 								dbControl.deleteVoucher(temp);
@@ -131,6 +131,9 @@ public class VoucherGUI {
 								Ticket tempTicket = new Ticket(randomNumber, seatNumber, showID, movieName, theatre, datePur, movieShowTime, email, price);
 								dbControl.addTicket(tempTicket);			
 								JOptionPane.showMessageDialog(null, "Booking Complete! Please check your email for the ticket.", "Voucher Info", JOptionPane.PLAIN_MESSAGE);
+								int ticketNumber = tempTicket.getID();
+								EmailSystem sendEmail = new EmailSystem(dbControl, seatNumber, email);
+								sendEmail.sendMail(email, 20, seatNumber, movieShowTime, showID, theatre, ticketNumber);
 								frame.dispose();
 								WelcomeGUI afterRegistration= new WelcomeGUI(app, dbControl, canControl, payControl);
 								afterRegistration.frame.setVisible(true);
