@@ -17,7 +17,7 @@ public class PaymentController {
     }
     
     
-    public void currApp(MovieTheatreApp app){
+    public void setApp(MovieTheatreApp app){
         this.app = app;
     }
 
