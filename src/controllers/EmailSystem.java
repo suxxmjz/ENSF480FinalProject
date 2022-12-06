@@ -1,8 +1,10 @@
 package controllers;
 
+import java.time.LocalDateTime;
 import java.util.*;
+import javax.mail.*;
 
-import gui.RUserLoginGUI;
+import javax.mail.internet.*;
 
 public class EmailSystem {
 	
@@ -11,23 +13,26 @@ public class EmailSystem {
 	public static String email;
 	Session newSession = null;
 	
-	//constructor
 	public EmailSystem(DatabaseController dbControl, int seatNumber, String email) {
 		EmailSystem.dbControl = dbControl;
 		EmailSystem.seatNumber = seatNumber;
 		EmailSystem.email = email;
 	}
 	
-	//function to send an email to the user once their ticket is created
-    public static void sendMail(String email, double paidAmount, String seat){
-        String to = RUserLoginGUI.email.trim();
-        String from = "jmovies.noreply@gmail.com";
+    public void sendMail(String email, double price, int seat, LocalDateTime time, String id, String theatre, int tNumber){
+        String to = email.trim();
+        String from = "ensf480movie@gmail.com";
 
-        String Str = seat;
+        String Str;
 
-        Str = Str + "The amount paid for the ticket(s) - " + paidAmount;
-
-
+        Str = "This is your ticket!\n"
+        		+ "Ticket Number: " + tNumber + "\n"
+        		+ "Theatre: " + theatre + "\n"
+        		+ "Showroom: " + id + "\n"
+        		+ "Seat Number: " + seat + "\n"
+        		+ "Time: " + time + "\n"
+        		+ "Amount: " + price;
+        
         Properties properties = new Properties();
 
         properties.put("mail.smtp.host", "smtp.gmail.com");
@@ -39,7 +44,7 @@ public class EmailSystem {
 
         Session session = Session.getDefaultInstance(properties, new javax.mail.Authenticator(){
             protected PasswordAuthentication getPasswordAuthentication(){
-                return new PasswordAuthentication("jmovies.noreply@gmail.com", "ohxvvxntiluysyyg");
+                return new PasswordAuthentication("ensf480movie@gmail.com", "stylquyurygqkdwx");
             }
         });
 
@@ -48,15 +53,14 @@ public class EmailSystem {
             MimeMessage message = new MimeMessage(session);
             message.setFrom(new InternetAddress(from));
             message.addRecipient(Message.RecipientType.TO, new InternetAddress(to));
-            message.setSubject("Payment Successful");
+            message.setSubject("Ticket Information");
             message.setText(Str);
             Transport.send(message);
-            System.out.println("Email Sent!");
-            System.out.println(Str);
         }
         catch(MessagingException mex){
             mex.printStackTrace();
         }
 
     }
+
 }
